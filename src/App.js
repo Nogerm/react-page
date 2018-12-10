@@ -2,13 +2,20 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { getBirthdayPerson, getBirthdayPrayer } from './Components/MongoDB';
-
+import ItemList from './Components/ItemList/ItemList';
 
 class App extends Component {
+
+  state = {
+    birthdayPerson: [],
+  }
 
   componentDidMount() {
     getBirthdayPerson().then(data => {
       console.log("[componentDidMount]" + JSON.stringify(data));
+      this.setState({
+        birthdayPerson: [...data]
+      });
     });
 
     getBirthdayPrayer().then(data => {
@@ -34,6 +41,7 @@ class App extends Component {
             Learn React
           </a>
         </header>
+        <ItemList data={this.state.birthdayPerson}/>
       </div>
     );
   }
