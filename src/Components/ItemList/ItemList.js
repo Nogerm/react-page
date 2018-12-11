@@ -8,7 +8,7 @@ export default class ItemList extends Component {
     return (
       <div>
           {people.map(function(person, index){
-            return <Item key={index} name={person.firstname}/>;
+            return <Item key={index} name={person.firstname} month={person.birth_month} day={person.birth_day}/>;
           })}
       </div>
     );

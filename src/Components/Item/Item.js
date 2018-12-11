@@ -5,9 +5,9 @@ export default class Item extends Component {
   render() {
     return (
     <Container>
-      <LeftColumn></LeftColumn>
-      <MidColumn>{this.props.name}</MidColumn>
-      <RightColumn></RightColumn>
+      <LeftColumn>{this.props.name}</LeftColumn>
+      <MidColumn>{this.props.month}</MidColumn>
+      <RightColumn>{this.props.day}</RightColumn>
       <EditColumn></EditColumn>
     </Container>
     );

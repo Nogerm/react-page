@@ -6,30 +6,26 @@ export const Container = styled.div`
   justify-content: center;
   display: flex;
   flex-direction: row;
+  margin: 3px;
+  background: #f5f5f5;
 `;
 
 export const LeftColumn = styled.div`
   flex: 1;
   justify-content: center;
-  border: 3px solid green;
 `;
 
 export const MidColumn = styled.div`
-  flex: 2;
+  flex: 1;
   justify-content: center;
-  border: 3px solid blue;
 `;
 
 export const RightColumn = styled.div`
   flex: 1;
   justify-content: center;
-  border-width:3px;
-  border-color:#A9A9A9;
 `;
 
 export const EditColumn = styled.div`
   flex: 1;
   justify-content: center;
-  border-width:3px;
-  border-color:#A9A9A9;
 `;
