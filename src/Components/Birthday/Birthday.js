@@ -1,6 +1,7 @@
 import React, { Component}  from 'react';
 import { Button, Icon, Table } from 'semantic-ui-react'
 import { getBirthdayPerson, getBirthdayPrayer } from '../MongoDB';
+import 'semantic-ui-css/semantic.min.css';
 
 export default class Birthday extends Component {
 	
@@ -29,7 +30,7 @@ export default class Birthday extends Component {
 		const people = this.state.birthdayPeople;
 		const prayers = this.state.birthdayPrayers;
     return (
-			<Table celled definition>
+			<Table celled>
 				<Table.Header>
 					<Table.Row>
 						<Table.HeaderCell>Name</Table.HeaderCell>
@@ -46,7 +47,14 @@ export default class Birthday extends Component {
 								<Table.Cell>{person.firstname}</Table.Cell>
 								<Table.Cell>{person.birth_month}</Table.Cell>
 								<Table.Cell>{person.birth_day}</Table.Cell>
-								<Table.Cell>No</Table.Cell>
+								<Table.Cell>
+									<Button floated='right' icon labelPosition='left' negative size='small'>
+										<Icon name='trash alternate' /> Remove
+									</Button>
+									<Button floated='right' icon labelPosition='left' primary size='small'>
+										<Icon name='pencil alternate' /> Edit
+									</Button>
+								</Table.Cell>
 							</Table.Row>
 						);
 					})}
@@ -54,10 +62,9 @@ export default class Birthday extends Component {
 
 				<Table.Footer fullWidth>
 					<Table.Row>
-						<Table.HeaderCell />
 						<Table.HeaderCell colSpan='4'>
 							<Button floated='right' icon labelPosition='left' primary size='small'>
-								<Icon name='user' /> Add User
+								<Icon name='user plus' /> Add User
 							</Button>
 						</Table.HeaderCell>
 					</Table.Row>

@@ -30,7 +30,7 @@ export const RightColumn = styled.div`
 	flex: 5;
 	justify-content: center;
 	display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 export const ContentText = styled.p`
