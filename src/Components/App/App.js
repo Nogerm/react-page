@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import { Container, LeftColumn, RightColumn, LogoImage, ContentText } from './style';
-import Birthday from './../Birthday/Birthday';
+import Birthday from './../Birthday';
 
 class App extends Component {
 
