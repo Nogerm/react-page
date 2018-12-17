@@ -34,16 +34,11 @@ export const getBirthdayPerson = function() {
 export const updateBirthdayPerson = function(newData) {
   console.log(JSON.stringify(newData));
 	return new Promise((resolve, reject) => {
-		axios.put(BIRTHDAY_PERSON_URL + '/' + newData.id, {
-				params: {
-					apiKey: API_KEY
-				},
-				data: {
-          firstname: newData.firstname,
-          lastname: newData.lastname,
-          birth_month: newData.birth_month,
-          birth_day: newData.birth_day
-				},
+		axios.put(BIRTHDAY_PERSON_URL + '/' + newData.id + '?apiKey=' + API_KEY, {
+        firstname: newData.firstname,
+        lastname: newData.lastname,
+        birth_month: newData.birth_month,
+        birth_day: newData.birth_day
 			})
 			.then(function (response) {
 				console.log("[updateBirthdayPerson]" + response);

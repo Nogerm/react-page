@@ -49,6 +49,7 @@ export default class CustomModal extends Component {
       birth_day: (this.state.inputBirthDay === '') ? this.state.person.birth_day : this.state.inputBirthDay
     }
     updateBirthdayPerson(newData);
+    this.modalUserUpdateClose();
   }
 
   render() {
