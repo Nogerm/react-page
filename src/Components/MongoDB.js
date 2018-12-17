@@ -31,8 +31,28 @@ export const getBirthdayPerson = function() {
 	})
 }
 
+export const addBirthdayPerson = function(newData) {
+    console.log(JSON.stringify(newData));
+	  return new Promise((resolve, reject) => {
+		  axios.post(BIRTHDAY_PERSON_URL + '?apiKey=' + API_KEY, {
+      _id: newData.id,
+		  firstname: newData.firstname,
+		  lastname: newData.lastname,
+		  birth_month: newData.birth_month,
+		  birth_day: newData.birth_day
+		})
+		.then(function (response) {
+			console.log("[addBirthdayPerson]" + response);
+			resolve(response.data);
+		})
+		.catch(function (error) {
+			console.log("[addBirthdayPerson]" + error);
+			reject(error);
+		});
+	})
+}
+
 export const updateBirthdayPerson = function(newData) {
-  console.log(JSON.stringify(newData));
 	return new Promise((resolve, reject) => {
 		axios.put(BIRTHDAY_PERSON_URL + '/' + newData.id + '?apiKey=' + API_KEY, {
         firstname: newData.firstname,
@@ -40,6 +60,20 @@ export const updateBirthdayPerson = function(newData) {
         birth_month: newData.birth_month,
         birth_day: newData.birth_day
 			})
+			.then(function (response) {
+				console.log("[updateBirthdayPerson]" + response);
+				resolve(response.data);
+			})
+			.catch(function (error) {
+				console.log("[updateBirthdayPerson]" + error);
+				reject(error);
+			});
+	})
+}
+
+export const removeBirthdayPerson = function(personId) {
+	return new Promise((resolve, reject) => {
+		axios.delete(BIRTHDAY_PERSON_URL + '/' + personId + '?apiKey=' + API_KEY)
 			.then(function (response) {
 				console.log("[updateBirthdayPerson]" + response);
 				resolve(response.data);

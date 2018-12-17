@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Icon, Modal, Form } from 'semantic-ui-react'
-import { updateBirthdayPerson } from './MongoDB';
+import { addBirthdayPerson, updateBirthdayPerson, removeBirthdayPerson } from './MongoDB';
+const uuidv4 = require('uuid/v4');
 
 export default class CustomModal extends Component {
 
@@ -24,12 +25,29 @@ export default class CustomModal extends Component {
     this.setState({ modalUserAddShow: false });
   }
 
+  modalUserAddSubmit = () => {
+    const newData = {
+      id: uuidv4(),
+      firstname: this.state.inputFirstname,
+      lastname: this.state.inputLastName,
+      birth_month: this.state.inputBirthMonth,
+      birth_day: this.state.inputBirthDay
+    }
+    addBirthdayPerson(newData);
+    this.modalUserAddClose();
+  }
+
   modalUserRemoveOpen = () => {
     this.setState({ modalUserRemoveShow: true });
   }
 
   modalUserRemoveClose = () => {
     this.setState({ modalUserRemoveShow: false });
+  }
+
+  modalUserRemoveSubmit = () => {
+    removeBirthdayPerson(this.state.person._id);
+    this.modalUserRemoveClose();
   }
 
   modalUserUpdateOpen = () => {
@@ -69,24 +87,24 @@ export default class CustomModal extends Component {
               <Form>
                 <Form.Field>
                   <label>名字</label>
-                  <input placeholder='名字' />
+                  <input placeholder='名字' onChange={e => {this.setState({inputFirstname: e.target.value});}} />
                 </Form.Field>
                 <Form.Field>
                   <label>姓氏</label>
-                  <input placeholder='姓氏' />
+                  <input placeholder='姓氏' onChange={e => {this.setState({inputLastName: e.target.value});}} />
                 </Form.Field>
                 <Form.Field>
                   <label>月份</label>
-                  <input placeholder='月份' />
+                  <input placeholder='月份' onChange={e => {this.setState({inputBirthMonth: e.target.value});}} />
                 </Form.Field>
                 <Form.Field>
                   <label>日期</label>
-                  <input placeholder='日期' />
+                  <input placeholder='日期' onChange={e => {this.setState({inputBirthDay: e.target.value});}}/>
                 </Form.Field>
               </Form>
             </Modal.Description>
             <Modal.Actions style={{ padding: '3em' }}>
-              <Button floated='right' color='green'>
+              <Button floated='right' color='green' onClick={this.modalUserAddSubmit} disabled={this.state.inputFirstname === '' || this.state.inputLastname === '' || this.state.inputBirthMonth === '' || this.state.inputBirthDay === ''}>
                 <Icon name='checkmark' /> 確定
               </Button>
               <Button floated='right' color='red' onClick={this.modalUserAddClose}>
@@ -150,7 +168,7 @@ export default class CustomModal extends Component {
               <p>確定要刪除{personInfo.firstname}的生日?</p>
             </Modal.Description>
             <Modal.Actions style={{ padding: '3em' }}>
-              <Button floated='right' color='green'>
+              <Button floated='right' color='green' onClick={this.modalUserRemoveSubmit}>
                 <Icon name='checkmark' /> 確定
               </Button>
               <Button floated='right' color='red' onClick={this.modalUserRemoveClose}>

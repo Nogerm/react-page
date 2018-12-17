@@ -9,10 +9,10 @@ export default class Birthday extends Component {
 	state = {
 		birthdayPeople: [],
     birthdayPrayers: [],
-  }
-
-	componentDidMount() {
-    getBirthdayPerson().then(data => {
+	}
+	
+	reloadData() {
+		getBirthdayPerson().then(data => {
       console.log("[componentDidMount]" + JSON.stringify(data));
       this.setState({
         birthdayPeople: [...data]
@@ -25,6 +25,10 @@ export default class Birthday extends Component {
         birthdayPrayers: [...data]
       });
     });
+	}
+
+	componentDidMount() {
+    this.reloadData();
   }
 
 	render() {
