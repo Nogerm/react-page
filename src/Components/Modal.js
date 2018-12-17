@@ -70,13 +70,17 @@ export default class CustomModal extends Component {
     this.modalUserUpdateClose();
   }
 
+  reloadData1 = () => {
+    console.log('MODALJS RELOAD');
+  }
+
   render() {
     const modalType = this.state.type;
     const personInfo = this.state.person;
 
     if(modalType === 'ADD') {
       return(
-        <Modal open={this.state.modalUserAddShow} onClose={this.modalUserAddClose} trigger={
+        <Modal open={this.state.modalUserAddShow} onClose={this.reloadData1} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalUserAddOpen}>
             <Icon name='user plus' /> 新增生日提醒
           </Button>
@@ -107,7 +111,7 @@ export default class CustomModal extends Component {
               <Button floated='right' color='green' onClick={this.modalUserAddSubmit} disabled={this.state.inputFirstname === '' || this.state.inputLastname === '' || this.state.inputBirthMonth === '' || this.state.inputBirthDay === ''}>
                 <Icon name='checkmark' /> 確定
               </Button>
-              <Button floated='right' color='red' onClick={this.modalUserAddClose}>
+              <Button floated='right' color='grey' onClick={this.modalUserAddClose}>
                 <Icon name='remove' /> 取消
               </Button>
             </Modal.Actions>
@@ -117,7 +121,7 @@ export default class CustomModal extends Component {
 
     } else if(modalType === 'UPDATE') {
       return(
-        <Modal open={this.state.modalUserUpdateShow}  onClose={this.modalUserUpdateClose} trigger={
+        <Modal open={this.state.modalUserUpdateShow}  onClose={this.reloadData} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalUserUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
@@ -148,7 +152,7 @@ export default class CustomModal extends Component {
               <Button floated='right' color='green' onClick={this.modalUserUpdateSubmit}>
                 <Icon name='checkmark' /> 確定
               </Button>
-              <Button floated='right' color='red' onClick={this.modalUserUpdateClose}>
+              <Button floated='right' color='grey' onClick={this.modalUserUpdateClose}>
                 <Icon name='remove' /> 取消
               </Button>
             </Modal.Actions>
@@ -157,7 +161,7 @@ export default class CustomModal extends Component {
       )
     } else if(modalType === 'REMOVE') {
       return(
-        <Modal open={this.state.modalUserRemoveShow} onClose={this.modalUserRemoveClose} trigger={
+        <Modal open={this.state.modalUserRemoveShow} onClose={this.reloadData} trigger={
           <Button floated='right' icon labelPosition='left' negative size='small' onClick={this.modalUserRemoveOpen}>
             <Icon name='trash alternate' /> 移除
           </Button>
@@ -168,10 +172,10 @@ export default class CustomModal extends Component {
               <p>確定要刪除{personInfo.firstname}的生日?</p>
             </Modal.Description>
             <Modal.Actions style={{ padding: '3em' }}>
-              <Button floated='right' color='green' onClick={this.modalUserRemoveSubmit}>
-                <Icon name='checkmark' /> 確定
+              <Button floated='right' color='red' onClick={this.modalUserRemoveSubmit}>
+                <Icon name='checkmark' /> 移除
               </Button>
-              <Button floated='right' color='red' onClick={this.modalUserRemoveClose}>
+              <Button floated='right' color='grey' onClick={this.modalUserRemoveClose}>
                 <Icon name='remove' /> 取消
               </Button>
             </Modal.Actions>

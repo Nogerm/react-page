@@ -32,7 +32,6 @@ export const getBirthdayPerson = function() {
 }
 
 export const addBirthdayPerson = function(newData) {
-    console.log(JSON.stringify(newData));
 	  return new Promise((resolve, reject) => {
 		  axios.post(BIRTHDAY_PERSON_URL + '?apiKey=' + API_KEY, {
       _id: newData.id,
@@ -75,11 +74,11 @@ export const removeBirthdayPerson = function(personId) {
 	return new Promise((resolve, reject) => {
 		axios.delete(BIRTHDAY_PERSON_URL + '/' + personId + '?apiKey=' + API_KEY)
 			.then(function (response) {
-				console.log("[updateBirthdayPerson]" + response);
+				console.log("[removeBirthdayPerson]" + response);
 				resolve(response.data);
 			})
 			.catch(function (error) {
-				console.log("[updateBirthdayPerson]" + error);
+				console.log("[removeBirthdayPerson]" + error);
 				reject(error);
 			});
 	})
