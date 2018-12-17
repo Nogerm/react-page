@@ -1,5 +1,5 @@
 import React, { Component}  from 'react';
-import { Button, Icon, Table, Container, Divider, Header, Segment } from 'semantic-ui-react'
+import { Button, Icon, Table, Container, Divider, Header, Segment, Modal, Form } from 'semantic-ui-react'
 import { getBirthdayPerson, getBirthdayPrayer } from '../MongoDB';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -7,7 +7,8 @@ export default class Birthday extends Component {
 	
 	state = {
 		birthdayPeople: [],
-		birthdayPrayers: [],
+    birthdayPrayers: [],
+    selectedPerson: '',
   }
 
 	componentDidMount() {
@@ -26,9 +27,118 @@ export default class Birthday extends Component {
     });
   }
 
+  //render functions
+  renderButtonUserBirthdayUpdate = (userInfo) => {
+    return(
+      <Modal trigger={
+        <Button floated='right' icon labelPosition='left' primary size='small'>
+          <Icon name='pencil alternate' /> Edit
+        </Button>
+        }>
+        <Modal.Header>更新組員生日</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <Form>
+              <Form.Field>
+                <label>名字</label>
+                <input value={userInfo.firstname.toString()} />
+              </Form.Field>
+              <Form.Field>
+                <label>姓氏</label>
+                <input value={userInfo.lastname.toString()} />
+              </Form.Field>
+              <Form.Field>
+                <label>月份</label>
+                <input value={userInfo.birth_month.toString()} />
+              </Form.Field>
+              <Form.Field>
+                <label>日期</label>
+                <input value={userInfo.birth_day.toString()} />
+              </Form.Field>
+            </Form>
+          </Modal.Description>
+          <Modal.Actions>
+            <Button floated='right' color='green'>
+              <Icon name='checkmark' /> 確定
+            </Button>
+          </Modal.Actions>
+        </Modal.Content>
+      </Modal>
+    );
+  }
+
+  renderButtonUserBirthdayRemove = (userInfo) => {
+    return(
+      <Modal trigger={
+        <Button floated='right' icon labelPosition='left' negative size='small'>
+					<Icon name='trash alternate' /> Remove
+				</Button>
+        }>
+        <Modal.Header>刪除組員生日</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <p>確定要刪除{userInfo.firstname}的生日?</p>
+          </Modal.Description>
+          <Modal.Actions>
+            <Button floated='right' color='green'>
+              <Icon name='checkmark' /> 確定
+            </Button>
+            <Button floated='right' color='red'>
+              <Icon name='remove' /> 取消
+            </Button>
+          </Modal.Actions>
+        </Modal.Content>
+      </Modal>
+    );
+  }
+
+  renderButtonUserBirthdayAdd = () => {
+    return(
+      <Modal trigger={
+        <Button floated='right' icon labelPosition='left' primary size='small'>
+					<Icon name='user plus' /> Add User
+				</Button>
+        }>
+        <Modal.Header>新增生日組員</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <Form>
+              <Form.Field>
+                <label>名字</label>
+                <input placeholder='名字' />
+              </Form.Field>
+              <Form.Field>
+                <label>姓氏</label>
+                <input placeholder='姓氏' />
+              </Form.Field>
+              <Form.Field>
+                <label>月份</label>
+                <input placeholder='月份' />
+              </Form.Field>
+              <Form.Field>
+                <label>日期</label>
+                <input placeholder='日期' />
+              </Form.Field>
+            </Form>
+          </Modal.Description>
+          <Modal.Actions>
+            <Button floated='right' color='green'>
+              <Icon name='checkmark' /> 確定
+            </Button>
+            <Button floated='right' color='red'>
+              <Icon name='remove' /> 取消
+            </Button>
+          </Modal.Actions>
+        </Modal.Content>
+      </Modal>
+    );
+  }
+
 	render() {
 		const people = this.state.birthdayPeople;
-		const prayers = this.state.birthdayPrayers;
+    const prayers = this.state.birthdayPrayers;
+    const renderButtonUserBirthdayUpdate = this.renderButtonUserBirthdayUpdate;
+    const renderButtonUserBirthdayRemove = this.renderButtonUserBirthdayRemove;
     return (
 			<Container style={{ padding: '3em' }}>
 				<Segment raised>
@@ -56,12 +166,8 @@ export default class Birthday extends Component {
 										<Table.Cell>{person.birth_month}</Table.Cell>
 										<Table.Cell>{person.birth_day}</Table.Cell>
 										<Table.Cell>
-											<Button floated='right' icon labelPosition='left' negative size='small'>
-												<Icon name='trash alternate' /> Remove
-											</Button>
-											<Button floated='right' icon labelPosition='left' primary size='small'>
-												<Icon name='pencil alternate' /> Edit
-											</Button>
+											{renderButtonUserBirthdayRemove(person)}
+											{renderButtonUserBirthdayUpdate(person)}
 										</Table.Cell>
 									</Table.Row>
 								);
@@ -71,9 +177,7 @@ export default class Birthday extends Component {
 						<Table.Footer fullWidth>
 							<Table.Row>
 								<Table.HeaderCell colSpan='4'>
-									<Button floated='right' icon labelPosition='left' primary size='small'>
-										<Icon name='user plus' /> Add User
-									</Button>
+                  {this.renderButtonUserBirthdayAdd()}
 								</Table.HeaderCell>
 							</Table.Row>
 						</Table.Footer>
@@ -136,6 +240,5 @@ export default class Birthday extends Component {
 			</Container>
     );
   }
-	
 	
 }
