@@ -25,7 +25,7 @@ export default class BirthdayUser extends Component {
 
   render() {
     const people = this.state.birthdayPeople;
-    const reloadData = this.queryData;
+    const queryData = this.queryData;
 
     return(
       <Segment raised>
@@ -53,8 +53,8 @@ export default class BirthdayUser extends Component {
                   <Table.Cell>{person.birth_month}</Table.Cell>
                   <Table.Cell>{person.birth_day}</Table.Cell>
                   <Table.Cell>
-                    <CustomModal type='REMOVE' person={person} callback={reloadData}/>
-                    <CustomModal type='UPDATE' person={person} callback={reloadData}/>
+                    <CustomModal type='REMOVE' person={person} callback={queryData}/>
+                    <CustomModal type='UPDATE' person={person} callback={queryData}/>
                   </Table.Cell>
                 </Table.Row>
               );
@@ -64,7 +64,7 @@ export default class BirthdayUser extends Component {
           <Table.Footer fullWidth>
             <Table.Row>
               <Table.HeaderCell colSpan='4'>
-                <CustomModal type='ADD' callback={reloadData}/>
+                <CustomModal type='ADD' callback={queryData}/>
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>

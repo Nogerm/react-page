@@ -70,8 +70,9 @@ export default class CustomModal extends Component {
     this.modalUserUpdateClose();
   }
 
-  reloadData1 = () => {
+  reloadData = () => {
     console.log('MODALJS RELOAD');
+    this.props.callback();
   }
 
   render() {
@@ -80,7 +81,7 @@ export default class CustomModal extends Component {
 
     if(modalType === 'ADD') {
       return(
-        <Modal open={this.state.modalUserAddShow} onClose={this.reloadData1} trigger={
+        <Modal open={this.state.modalUserAddShow} onUnmount={this.reloadData} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalUserAddOpen}>
             <Icon name='user plus' /> 新增生日提醒
           </Button>
@@ -121,7 +122,7 @@ export default class CustomModal extends Component {
 
     } else if(modalType === 'UPDATE') {
       return(
-        <Modal open={this.state.modalUserUpdateShow}  onClose={this.reloadData} trigger={
+        <Modal open={this.state.modalUserUpdateShow}  onUnmount={this.reloadData} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalUserUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
@@ -161,7 +162,7 @@ export default class CustomModal extends Component {
       )
     } else if(modalType === 'REMOVE') {
       return(
-        <Modal open={this.state.modalUserRemoveShow} onClose={this.reloadData} trigger={
+        <Modal open={this.state.modalUserRemoveShow} onUnmount={this.reloadData} trigger={
           <Button floated='right' icon labelPosition='left' negative size='small' onClick={this.modalUserRemoveOpen}>
             <Icon name='trash alternate' /> 移除
           </Button>
