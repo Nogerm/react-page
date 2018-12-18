@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Icon, Modal, Form } from 'semantic-ui-react'
+import { Button, Icon, Modal, Form, Input } from 'semantic-ui-react'
 import { addBirthdayPerson, updateBirthdayPerson, removeBirthdayPerson } from './MongoDB';
 const uuidv4 = require('uuid/v4');
 
@@ -74,7 +74,7 @@ export default class CustomModal extends Component {
     const callback = this.props.callback;
     setTimeout(function() {
       callback();
-    }, 1000);
+    }, 2000);
   }
 
   render() {
@@ -94,24 +94,24 @@ export default class CustomModal extends Component {
               <Form>
                 <Form.Field>
                   <label>名字</label>
-                  <input placeholder='名字' onChange={e => {this.setState({inputFirstname: e.target.value});}} />
+                  <Input label={{ icon: 'asterisk' }} labelPosition='left corner' placeholder='名字' onChange={e => {this.setState({inputFirstname: e.target.value});}} />
                 </Form.Field>
                 <Form.Field>
                   <label>姓氏</label>
-                  <input placeholder='姓氏' onChange={e => {this.setState({inputLastName: e.target.value});}} />
+                  <Input placeholder='姓氏' onChange={e => {this.setState({inputLastName: e.target.value});}} />
                 </Form.Field>
                 <Form.Field>
                   <label>月份</label>
-                  <input placeholder='月份' onChange={e => {this.setState({inputBirthMonth: e.target.value});}} />
+                  <Input label={{ icon: 'asterisk' }} labelPosition='left corner' placeholder='月份' onChange={e => {this.setState({inputBirthMonth: e.target.value});}} />
                 </Form.Field>
                 <Form.Field>
                   <label>日期</label>
-                  <input placeholder='日期' onChange={e => {this.setState({inputBirthDay: e.target.value});}}/>
+                  <Input label={{ icon: 'asterisk' }} labelPosition='left corner' placeholder='日期' onChange={e => {this.setState({inputBirthDay: e.target.value});}}/>
                 </Form.Field>
               </Form>
             </Modal.Description>
             <Modal.Actions style={{ padding: '3em' }}>
-              <Button floated='right' color='green' onClick={this.modalUserAddSubmit} disabled={this.state.inputFirstname === '' || this.state.inputLastname === '' || this.state.inputBirthMonth === '' || this.state.inputBirthDay === ''}>
+              <Button floated='right' color='green' onClick={this.modalUserAddSubmit} disabled={this.state.inputFirstname === '' || this.state.inputBirthMonth === '' || this.state.inputBirthDay === ''}>
                 <Icon name='checkmark' /> 確定
               </Button>
               <Button floated='right' color='grey' onClick={this.modalUserAddClose}>

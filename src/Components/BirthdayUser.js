@@ -32,16 +32,16 @@ export default class BirthdayUser extends Component {
         <Divider horizontal>
           <Header as='h4'>
             <Icon name='user' />
-              生日列表
+              生日提醒列表
           </Header>
         </Divider>
         <Table celled>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Month</Table.HeaderCell>
-              <Table.HeaderCell>Day</Table.HeaderCell>
-              <Table.HeaderCell>Operation</Table.HeaderCell>
+              <Table.HeaderCell>名字</Table.HeaderCell>
+              <Table.HeaderCell>月份</Table.HeaderCell>
+              <Table.HeaderCell>日期</Table.HeaderCell>
+              <Table.HeaderCell style={{ width: '20em' }}>操作</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
