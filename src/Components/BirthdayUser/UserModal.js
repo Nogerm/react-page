@@ -3,7 +3,7 @@ import { Button, Icon, Modal, Form, Input } from 'semantic-ui-react'
 import { addBirthdayPerson, updateBirthdayPerson, removeBirthdayPerson } from '../MongoDB';
 const uuidv4 = require('uuid/v4');
 
-export default class CustomModal extends Component {
+export default class UserModal extends Component {
 
   state = {
     type: this.props.type,

@@ -1,7 +1,7 @@
 import React, { Component}  from 'react';
 import { Icon, Table, Divider, Header, Segment } from 'semantic-ui-react'
 import { getBirthdayPerson } from '../MongoDB';
-import CustomModal from './CustomModal';
+import UserModal from './UserModal';
 
 export default class BirthdayUser extends Component {
 
@@ -52,8 +52,8 @@ export default class BirthdayUser extends Component {
                   <Table.Cell>{person.birth_month}</Table.Cell>
                   <Table.Cell>{person.birth_day}</Table.Cell>
                   <Table.Cell>
-                    <CustomModal type='REMOVE' person={person} callback={queryData}/>
-                    <CustomModal type='UPDATE' person={person} callback={queryData}/>
+                    <UserModal type='REMOVE' person={person} callback={queryData}/>
+                    <UserModal type='UPDATE' person={person} callback={queryData}/>
                   </Table.Cell>
                 </Table.Row>
               );
@@ -63,7 +63,7 @@ export default class BirthdayUser extends Component {
           <Table.Footer fullWidth>
             <Table.Row>
               <Table.HeaderCell colSpan='4'>
-                <CustomModal type='ADD' callback={queryData}/>
+                <UserModal type='ADD' callback={queryData}/>
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>
