@@ -1,7 +1,7 @@
 import React, { Component}  from 'react';
 import { Icon, Table, Divider, Header, Segment } from 'semantic-ui-react'
-import { getBirthdayPerson } from './MongoDB';
-import CustomModal from './Modal';
+import { getBirthdayPerson } from '../MongoDB';
+import CustomModal from './CustomModal';
 import 'semantic-ui-css/semantic.min.css';
 
 export default class BirthdayUser extends Component {

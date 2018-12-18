@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Icon, Modal, Form, Input } from 'semantic-ui-react'
-import { addBirthdayPerson, updateBirthdayPerson, removeBirthdayPerson } from './MongoDB';
+import { addBirthdayPerson, updateBirthdayPerson, removeBirthdayPerson } from '../MongoDB';
 const uuidv4 = require('uuid/v4');
 
 export default class CustomModal extends Component {

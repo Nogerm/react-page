@@ -1,7 +1,7 @@
 import React, { Component}  from 'react';
 import { Button, Icon, Table, Container, Divider, Header, Segment } from 'semantic-ui-react'
 import { getBirthdayPrayer } from './MongoDB';
-import BirthdayUser from './BirthdayUser';
+import BirthdayUser from './BirthdayUser/BirthdayUser';
 import 'semantic-ui-css/semantic.min.css';
 
 export default class Birthday extends Component {
