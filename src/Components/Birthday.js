@@ -10,7 +10,7 @@ export default class Birthday extends Component {
     birthdayPrayers: [],
 	}
 	
-	reloadData() {
+	reloadData = () => {
   	getBirthdayPrayer().then(data => {
 			console.log("[componentDidMount]" + JSON.stringify(data));
 			this.setState({

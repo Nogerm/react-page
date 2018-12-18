@@ -71,8 +71,10 @@ export default class CustomModal extends Component {
   }
 
   reloadData = () => {
-    console.log('MODALJS RELOAD');
-    this.props.callback();
+    const callback = this.props.callback;
+    setTimeout(function() {
+      callback();
+    }, 1000);
   }
 
   render() {

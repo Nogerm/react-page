@@ -14,7 +14,7 @@ export default class BirthdayUser extends Component {
     this.queryData();
   }
 
-  queryData() {
+  queryData = () => {
 		getBirthdayPerson().then(data => {
       console.log("[BirthdayUser queryData]" + JSON.stringify(data));
       this.setState({
@@ -46,9 +46,9 @@ export default class BirthdayUser extends Component {
           </Table.Header>
 
           <Table.Body>
-            {people.map(function(person, index){
+            {people.map(function(person){
               return (
-                <Table.Row key={index} >
+                <Table.Row key={person._id} >
                   <Table.Cell>{person.firstname}</Table.Cell>
                   <Table.Cell>{person.birth_month}</Table.Cell>
                   <Table.Cell>{person.birth_day}</Table.Cell>
