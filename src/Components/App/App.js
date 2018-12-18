@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import { Container, LeftColumn, RightColumn, LogoImage, ContentText } from './style';
 import Birthday from './../Birthday';
+import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
 

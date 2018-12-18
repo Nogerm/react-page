@@ -2,7 +2,6 @@ import React, { Component}  from 'react';
 import { Icon, Table, Divider, Header, Segment } from 'semantic-ui-react'
 import { getBirthdayPerson } from '../MongoDB';
 import CustomModal from './CustomModal';
-import 'semantic-ui-css/semantic.min.css';
 
 export default class BirthdayUser extends Component {
 
@@ -41,7 +40,7 @@ export default class BirthdayUser extends Component {
               <Table.HeaderCell>名字</Table.HeaderCell>
               <Table.HeaderCell>月份</Table.HeaderCell>
               <Table.HeaderCell>日期</Table.HeaderCell>
-              <Table.HeaderCell style={{ width: '20em' }}>操作</Table.HeaderCell>
+              <Table.HeaderCell style={{ width: '250px' }}>操作</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
