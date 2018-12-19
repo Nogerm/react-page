@@ -286,7 +286,7 @@ export default class PrayerModal extends Component {
     } else if(modalType === 'REMOVE_GROUP') {
       return(
         <Modal open={this.state.modalPrayerRemoveGroupShow} onUnmount={this.reloadData} trigger={
-          <Button floated='right' icon labelPosition='left' negative size='small' onClick={this.modalPrayerRemoveGroupOpen}>
+          <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalPrayerRemoveGroupOpen}>
             <Icon name='trash alternate' /> 移除群組
           </Button>
           }>
@@ -296,7 +296,7 @@ export default class PrayerModal extends Component {
               <p>確定要刪除這個群組?</p>
             </Modal.Description>
             <Modal.Actions style={{ padding: '3em' }}>
-              <Button floated='right' color='red' onClick={this.modalPrayerRemoveGroupSubmit}>
+              <Button floated='right' color='google plus' onClick={this.modalPrayerRemoveGroupSubmit}>
                 <Icon name='checkmark' /> 移除
               </Button>
               <Button floated='right' color='grey' onClick={this.modalPrayerRemoveGroupClose}>
@@ -310,7 +310,7 @@ export default class PrayerModal extends Component {
     } else if(modalType === 'REMOVE_MSG') {
       return(
         <Modal open={this.state.modalPrayerRemoveMsgShow} onUnmount={this.reloadData} trigger={
-          <Button floated='right' icon labelPosition='left' negative size='small' onClick={this.modalPrayerRemoveMsgOpen}>
+          <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalPrayerRemoveMsgOpen}>
             <Icon name='trash alternate' /> 移除
           </Button>
           }>
@@ -320,7 +320,7 @@ export default class PrayerModal extends Component {
               <p>確定要刪除這則訊息?</p>
             </Modal.Description>
             <Modal.Actions style={{ padding: '3em' }}>
-              <Button floated='right' color='red' onClick={this.modalPrayerRemoveMsgSubmit}>
+              <Button floated='right' color='google plus' onClick={this.modalPrayerRemoveMsgSubmit}>
                 <Icon name='checkmark' /> 移除
               </Button>
               <Button floated='right' color='grey' onClick={this.modalPrayerRemoveMsgClose}>

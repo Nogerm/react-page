@@ -165,7 +165,7 @@ export default class UserModal extends Component {
     } else if(modalType === 'REMOVE') {
       return(
         <Modal open={this.state.modalUserRemoveShow} onUnmount={this.reloadData} trigger={
-          <Button floated='right' icon labelPosition='left' negative size='small' onClick={this.modalUserRemoveOpen}>
+          <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalUserRemoveOpen}>
             <Icon name='trash alternate' /> 移除
           </Button>
           }>
@@ -175,7 +175,7 @@ export default class UserModal extends Component {
               <p>確定要刪除{personInfo.firstname}的生日?</p>
             </Modal.Description>
             <Modal.Actions style={{ padding: '3em' }}>
-              <Button floated='right' color='red' onClick={this.modalUserRemoveSubmit}>
+              <Button floated='right' color='google plus' onClick={this.modalUserRemoveSubmit}>
                 <Icon name='checkmark' /> 移除
               </Button>
               <Button floated='right' color='grey' onClick={this.modalUserRemoveClose}>
