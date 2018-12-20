@@ -8,10 +8,18 @@ const dbName = 'heroku_0tvjhrct';
 //Collections
 const BIRTHDAY_PERSON = 'birthday_person';
 const BIRTHDAY_PRAYER = 'birthday_prayer';
+const ROUTINE_PERSON = 'routine_person';
+const ROUTINE_REMIND = 'routine_remind';
+const MONDAY_BLESS = 'monday_bless';
+const AUTO_RESPONSE = 'auto_response';
 
 //Query URLs
 const BIRTHDAY_PERSON_URL = BASE_URL + 'databases/' + dbName + '/collections/' + BIRTHDAY_PERSON;
 const BIRTHDAY_PRAYER_URL = BASE_URL + 'databases/' + dbName + '/collections/' + BIRTHDAY_PRAYER;
+const ROUTINE_PERSON_URL = BASE_URL + 'databases/' + dbName + '/collections/' + ROUTINE_PERSON;
+const ROUTINE_REMIND_URL = BASE_URL + 'databases/' + dbName + '/collections/' + ROUTINE_REMIND;
+const MONDAY_BLESS_URL = BASE_URL + 'databases/' + dbName + '/collections/' + MONDAY_BLESS;
+const AUTO_RESPONSE_URL = BASE_URL + 'databases/' + dbName + '/collections/' + AUTO_RESPONSE;
 
 //Birthday person
 export const getBirthdayPerson = function() {
