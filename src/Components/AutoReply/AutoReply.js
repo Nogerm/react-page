@@ -15,7 +15,7 @@ export default class AutoReply extends Component {
 
   queryData = () => {
 		getAutoReply().then(data => {
-			console.log("[componentDidMount]" + JSON.stringify(data));
+			console.log("[AutoReply queryData]" + JSON.stringify(data));
 			this.setState({
         autoReplys: [...data]
       });

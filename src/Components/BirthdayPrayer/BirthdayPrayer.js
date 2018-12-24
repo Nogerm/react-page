@@ -15,7 +15,7 @@ export default class BirthdayPrayer extends Component {
 
   queryData = () => {
 		getBirthdayPrayer().then(data => {
-			console.log("[componentDidMount]" + JSON.stringify(data));
+			console.log("[BirthdayPrayer queryData]" + JSON.stringify(data));
 			this.setState({
         birthdayPrayers: [...data]
       });

@@ -49,7 +49,7 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyAddMsgSubmit = () => {
-    let autoReplyCopy = [...this.state.autoReply];
+    let autoReplyCopy = this.state.autoReply;
     let newMsg = '';
     const isText = (this.state.inputMsgType === 'text') ? true : false;
 
@@ -127,7 +127,7 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyRemoveMsgSubmit = () => {
-    let autoReplyCopy = [...this.state.autoReply];
+    let autoReplyCopy = this.state.autoReply;
     autoReplyCopy.response_msgs.splice(this.state.msgIdx, 1);
     this.modalAutoReplyRemoveMsgClose();
     updateAutoReply(autoReplyCopy)
@@ -149,7 +149,7 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyUpdateSubmit = () => {
-    let autoReplyCopy = [...this.state.autoReply];
+    let autoReplyCopy = this.state.autoReply;
     let newData = '';
     const isText = (this.state.inputMsgType === 'text') ? true : false;
 

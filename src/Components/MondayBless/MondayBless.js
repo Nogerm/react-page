@@ -15,7 +15,7 @@ export default class MondayBless extends Component {
 
   queryData = () => {
 		getMondayBless().then(data => {
-			console.log("[componentDidMount]" + JSON.stringify(data));
+			console.log("[MondayBless queryData]" + JSON.stringify(data));
 			this.setState({
         mondayBlesses: [...data]
       });

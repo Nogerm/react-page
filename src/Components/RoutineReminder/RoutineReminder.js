@@ -15,7 +15,7 @@ export default class RoutineReminder extends Component {
 
   queryData = () => {
 		getRoutineReminder().then(data => {
-			console.log("[componentDidMount]" + JSON.stringify(data));
+			console.log("[RoutineReminder queryData]" + JSON.stringify(data));
 			this.setState({
         routineReminders: [...data]
       });
