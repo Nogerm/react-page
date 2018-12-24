@@ -31,7 +31,7 @@ export default class RoutineReminder extends Component {
 				<Divider horizontal>
 					<Header as='h4'>
 						<Icon name='file text' />
-						  分享提醒列表
+						  分享提醒訊息(隨機發送一組)
 					</Header>
 				</Divider>
 				{reminders.map(function(reminder, index){

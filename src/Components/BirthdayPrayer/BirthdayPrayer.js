@@ -31,7 +31,7 @@ export default class BirthdayPrayer extends Component {
 				<Divider horizontal>
 					<Header as='h4'>
 						<Icon name='file text' />
-						  生日訊息列表
+						  生日提醒訊息(隨機發送一組)
 					</Header>
 				</Divider>
 				{prayers.map(function(prayer, index){

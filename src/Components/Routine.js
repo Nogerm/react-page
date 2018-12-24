@@ -1,6 +1,6 @@
 import React, { Component}  from 'react';
 import { Container } from 'semantic-ui-react'
-import RoutineUser from './RoutineUser/RoutineUser';
+import RoutineRule from './RoutineRule/RoutineRule';
 import RoutineReminder from './RoutineReminder/RoutineReminder';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -10,7 +10,7 @@ export default class Routine extends Component {
 		
     return (
 			<Container style={{ padding: '3em' }}>
-				<RoutineUser/>
+				<RoutineRule/>
 				<RoutineReminder/>
 			</Container>
     );
