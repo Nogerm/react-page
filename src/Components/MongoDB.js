@@ -303,3 +303,72 @@ export const removeRoutineReminder = function(reminderId) {
 			});
 	})
 }
+
+//------------------
+//Monday Bless
+//------------------
+export const getMondayBless = function() {
+	return new Promise((resolve, reject) => {
+		axios.get(MONDAY_BLESS_URL, {
+				params: {
+					apiKey: API_KEY
+				}
+			})
+			.then(function (response) {
+				console.log("[getMondayBless]" + response);
+				resolve(response.data);
+			})
+			.catch(function (error) {
+				console.log("[getMondayBless]" + error);
+				reject(error);
+			});
+	})
+}
+
+export const addMondayBless = function(newData) {
+  return new Promise((resolve, reject) => {
+      axios.post(MONDAY_BLESS_URL + '?apiKey=' + API_KEY, {
+      _id: newData.id,
+      msgs: [...newData.msgs]
+    })
+    .then(function (response) {
+      console.log("[addMondayBless]" + response);
+      resolve(response.data);
+    })
+    .catch(function (error) {
+      console.log("[addMondayBless]" + error);
+      reject(error);
+    });
+  })
+}
+
+export const updateMondayBless = function(id, msgs) {
+	return new Promise((resolve, reject) => {
+  	axios.put(MONDAY_BLESS_URL + '/' + id + '?apiKey=' + API_KEY, {
+      _id: id,
+      msgs: [...msgs]
+    })
+    .then(function (response) {
+      console.log("[updateMondayBless]" + response);
+      resolve(response.data);
+    })
+    .catch(function (error) {
+      console.log("[updateMondayBless]" + error);
+      reject(error);
+    });
+  })
+}
+
+export const removeMondayBless = function(reminderId) {
+	return new Promise((resolve, reject) => {
+		axios.delete(MONDAY_BLESS_URL + '/' + reminderId + '?apiKey=' + API_KEY)
+			.then(function (response) {
+				console.log("[removeMondayBless]" + response);
+				resolve(response.data);
+			})
+			.catch(function (error) {
+				console.log("[removeMondayBless]" + error);
+				reject(error);
+			});
+	})
+}

@@ -4,6 +4,7 @@ import { LogoImage } from './style';
 import { Grid, Menu, Header } from 'semantic-ui-react'
 import Birthday from './../Birthday';
 import Routine from './../Routine';
+import MondayBless from './../MondayBless/MondayBless';
 import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
@@ -31,7 +32,7 @@ class App extends Component {
       )
     } else if(activeItem === '週一祝福') {
       return (
-        <div>週一祝福施工中</div>
+        <MondayBless/>
       )
     }
   }
