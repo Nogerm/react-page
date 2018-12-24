@@ -359,15 +359,86 @@ export const updateMondayBless = function(id, msgs) {
   })
 }
 
-export const removeMondayBless = function(reminderId) {
+export const removeMondayBless = function(mondayBlessId) {
 	return new Promise((resolve, reject) => {
-		axios.delete(MONDAY_BLESS_URL + '/' + reminderId + '?apiKey=' + API_KEY)
+		axios.delete(MONDAY_BLESS_URL + '/' + mondayBlessId + '?apiKey=' + API_KEY)
 			.then(function (response) {
 				console.log("[removeMondayBless]" + response);
 				resolve(response.data);
 			})
 			.catch(function (error) {
 				console.log("[removeMondayBless]" + error);
+				reject(error);
+			});
+	})
+}
+
+//------------------
+//Auto Reply
+//------------------
+export const getAutoReply = function() {
+	return new Promise((resolve, reject) => {
+		axios.get(AUTO_RESPONSE_URL, {
+				params: {
+					apiKey: API_KEY
+				}
+			})
+			.then(function (response) {
+				console.log("[getAutoReply]" + response);
+				resolve(response.data);
+			})
+			.catch(function (error) {
+				console.log("[getAutoReply]" + error);
+				reject(error);
+			});
+	})
+}
+
+export const addAutoReply = function(newData) {
+  return new Promise((resolve, reject) => {
+      axios.post(AUTO_RESPONSE_URL + '?apiKey=' + API_KEY, {
+      _id: newData._id,
+			key_words: [...newData.key_words],
+			response_msgs: [...newData.response_msgs]
+    })
+    .then(function (response) {
+      console.log("[addAutoReply]" + response);
+      resolve(response.data);
+    })
+    .catch(function (error) {
+      console.log("[addAutoReply]" + error);
+      reject(error);
+    });
+  })
+}
+
+export const updateAutoReply = function(newData) {
+	return new Promise((resolve, reject) => {
+  	axios.put(AUTO_RESPONSE_URL + '/' + newData._id + '?apiKey=' + API_KEY, {
+      _id: newData._id,
+      key_words: [...newData.key_words],
+			response_msgs: [...newData.response_msgs]
+    })
+    .then(function (response) {
+      console.log("[updateAutoReply]" + response);
+      resolve(response.data);
+    })
+    .catch(function (error) {
+      console.log("[updateAutoReply]" + error);
+      reject(error);
+    });
+  })
+}
+
+export const removeAutoReply = function(autoReplyId) {
+	return new Promise((resolve, reject) => {
+		axios.delete(AUTO_RESPONSE_URL + '/' + autoReplyId + '?apiKey=' + API_KEY)
+			.then(function (response) {
+				console.log("[removeAutoReply]" + response);
+				resolve(response.data);
+			})
+			.catch(function (error) {
+				console.log("[removeAutoReply]" + error);
 				reject(error);
 			});
 	})

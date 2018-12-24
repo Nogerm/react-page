@@ -5,6 +5,7 @@ import { Grid, Menu, Header } from 'semantic-ui-react'
 import Birthday from './../Birthday';
 import Routine from './../Routine';
 import MondayBless from './../MondayBless/MondayBless';
+import AutoReply from './../AutoReply/AutoReply';
 import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
@@ -28,7 +29,7 @@ class App extends Component {
       )
     } else if(activeItem === '自動回應') {
       return (
-        <div>自動回應施工中</div>
+        <AutoReply/>
       )
     } else if(activeItem === '週一祝福') {
       return (
