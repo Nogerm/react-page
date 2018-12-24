@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import { LogoImage } from './style';
 import { Grid, Menu, Header } from 'semantic-ui-react'
 import Birthday from './../Birthday';
+import Routine from './../Routine';
 import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
@@ -22,7 +23,7 @@ class App extends Component {
       )
     } else if(activeItem === '分享提醒') {
       return (
-        <div>分享提醒施工中</div>
+        <Routine/>
       )
     } else if(activeItem === '自動回應') {
       return (
@@ -41,11 +42,11 @@ class App extends Component {
 
     return (
       <Grid>
-        <Grid.Column width={3} style={{ 'background': '#4682B4', 'padding-right': 0 }}>
+        <Grid.Column width={3} style={{ 'background': '#4682B4', 'paddingRight': 0 }}>
           <LogoImage src={logo}/>
           <Header as='h2' style={{ 'margin': '10px', 'color': 'white' }}>Control Center</Header>
           <Header as='h4' style={{ 'margin': '10px', 'color': 'white' }}>The Backend of Linebot.</Header>
-          <Menu fluid vertical tabular style={{ 'margin-top': '50px' }}>
+          <Menu fluid vertical tabular style={{ 'marginTop': '50px' }}>
             <Menu.Item 
               name='生日提醒' 
               active={activeItem === '生日提醒'} 

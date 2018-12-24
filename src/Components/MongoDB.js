@@ -21,7 +21,9 @@ const ROUTINE_REMIND_URL = BASE_URL + 'databases/' + dbName + '/collections/' + 
 const MONDAY_BLESS_URL = BASE_URL + 'databases/' + dbName + '/collections/' + MONDAY_BLESS;
 const AUTO_RESPONSE_URL = BASE_URL + 'databases/' + dbName + '/collections/' + AUTO_RESPONSE;
 
+//------------------
 //Birthday person
+//------------------
 export const getBirthdayPerson = function() {
 	return new Promise((resolve, reject) => {
 		axios.get(BIRTHDAY_PERSON_URL, {
@@ -93,7 +95,9 @@ export const removeBirthdayPerson = function(personId) {
 	})
 }
 
+//------------------
 //Birthday prayer
+//------------------
 export const getBirthdayPrayer = function() {
 	return new Promise((resolve, reject) => {
 		axios.get(BIRTHDAY_PRAYER_URL, {
@@ -155,6 +159,75 @@ return new Promise((resolve, reject) => {
     })
     .catch(function (error) {
       console.log("[removeBirthdayPrayer]" + error);
+      reject(error);
+    });
+})
+}
+
+//------------------
+//Routine reminder
+//------------------
+export const getRoutineReminder = function() {
+	return new Promise((resolve, reject) => {
+		axios.get(ROUTINE_REMIND_URL, {
+				params: {
+					apiKey: API_KEY
+				}
+			})
+			.then(function (response) {
+				console.log("[getRoutineReminder]" + response);
+				resolve(response.data);
+			})
+			.catch(function (error) {
+				console.log("[getRoutineReminder]" + error);
+				reject(error);
+			});
+	})
+}
+
+export const addRoutineReminder = function(newData) {
+  return new Promise((resolve, reject) => {
+      axios.post(ROUTINE_REMIND_URL + '?apiKey=' + API_KEY, {
+      _id: newData.id,
+      msgs: [...newData.msgs]
+    })
+    .then(function (response) {
+      console.log("[addRoutineReminder]" + response);
+      resolve(response.data);
+    })
+    .catch(function (error) {
+      console.log("[addRoutineReminder]" + error);
+      reject(error);
+    });
+  })
+}
+
+export const updateRoutineReminder = function(id, msgs) {
+return new Promise((resolve, reject) => {
+  axios.put(ROUTINE_REMIND_URL + '/' + id + '?apiKey=' + API_KEY, {
+      _id: id,
+      msgs: [...msgs]
+    })
+    .then(function (response) {
+      console.log("[updateRoutineReminder]" + response);
+      resolve(response.data);
+    })
+    .catch(function (error) {
+      console.log("[updateRoutineReminder]" + error);
+      reject(error);
+    });
+  })
+}
+
+export const removeRoutineReminder = function(reminderId) {
+return new Promise((resolve, reject) => {
+  axios.delete(ROUTINE_REMIND_URL + '/' + reminderId + '?apiKey=' + API_KEY)
+    .then(function (response) {
+      console.log("[removeRoutineReminder]" + response);
+      resolve(response.data);
+    })
+    .catch(function (error) {
+      console.log("[removeRoutineReminder]" + error);
       reject(error);
     });
 })

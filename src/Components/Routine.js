@@ -1,17 +1,17 @@
 import React, { Component}  from 'react';
 import { Container } from 'semantic-ui-react'
-import BirthdayUser from './BirthdayUser/BirthdayUser';
-import BirthdayPrayer from './BirthdayPrayer/BirthdayPrayer';
+import RoutineUser from './RoutineUser/RoutineUser';
+import RoutineReminder from './RoutineReminder/RoutineReminder';
 import 'semantic-ui-css/semantic.min.css';
 
-export default class Birthday extends Component {
+export default class Routine extends Component {
 
 	render() {
 		
     return (
 			<Container style={{ padding: '3em' }}>
-				<BirthdayUser/>
-				<BirthdayPrayer/>
+				<RoutineUser/>
+				<RoutineReminder/>
 			</Container>
     );
   }
