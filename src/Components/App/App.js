@@ -6,6 +6,7 @@ import Birthday from './../Birthday';
 import Routine from './../Routine';
 import MondayBless from './../MondayBless/MondayBless';
 import AutoReply from './../AutoReply/AutoReply';
+import Setting from './../Setting';
 import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
@@ -34,6 +35,10 @@ class App extends Component {
     } else if(activeItem === '週一祝福') {
       return (
         <MondayBless/>
+      )
+    } else if(activeItem === '功能設定') {
+      return (
+        <Setting/>
       )
     }
   }
@@ -67,6 +72,11 @@ class App extends Component {
             <Menu.Item
               name='週一祝福'
               active={activeItem === '週一祝福'}
+              onClick={this.handleItemClick}
+            />
+            <Menu.Item
+              name='功能設定'
+              active={activeItem === '功能設定'}
               onClick={this.handleItemClick}
             />
           </Menu>
