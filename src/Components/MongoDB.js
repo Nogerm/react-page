@@ -12,6 +12,7 @@ const ROUTINE_PERSON = 'routine_person';
 const ROUTINE_REMIND = 'routine_remind';
 const MONDAY_BLESS = 'monday_bless';
 const AUTO_RESPONSE = 'auto_response';
+const SETTING = 'setting';
 
 //Query URLs
 const BIRTHDAY_PERSON_URL = BASE_URL + 'databases/' + dbName + '/collections/' + BIRTHDAY_PERSON;
@@ -20,6 +21,8 @@ const ROUTINE_PERSON_URL = BASE_URL + 'databases/' + dbName + '/collections/' + 
 const ROUTINE_REMIND_URL = BASE_URL + 'databases/' + dbName + '/collections/' + ROUTINE_REMIND;
 const MONDAY_BLESS_URL = BASE_URL + 'databases/' + dbName + '/collections/' + MONDAY_BLESS;
 const AUTO_RESPONSE_URL = BASE_URL + 'databases/' + dbName + '/collections/' + AUTO_RESPONSE;
+const SETTING_URL = BASE_URL + 'databases/' + dbName + '/collections/' + SETTING;
+
 
 //------------------
 //Birthday person
@@ -442,4 +445,45 @@ export const removeAutoReply = function(autoReplyId) {
 				reject(error);
 			});
 	})
+}
+
+//------------------
+//Setting
+//------------------
+export const getSetting = function() {
+	return new Promise((resolve, reject) => {
+		axios.get(SETTING_URL, {
+				params: {
+					apiKey: API_KEY
+				}
+			})
+			.then(function (response) {
+				console.log("[getSetting]" + response);
+				resolve(response.data);
+			})
+			.catch(function (error) {
+				console.log("[getSetting]" + error);
+				reject(error);
+			});
+	})
+}
+
+export const updateSetting = function(newData) {
+	return new Promise((resolve, reject) => {
+  	axios.put(SETTING_URL + '/' + newData.id + '?apiKey=' + API_KEY, {
+      _id: newData.id,
+      remind_birthday: newData.remind_birthday,
+			remind_routine: newData.remind_routine,
+			auto_reply: newData.auto_reply,
+			monday_bless: newData.monday_bless
+    })
+    .then(function (response) {
+      console.log("[updateSetting]" + response);
+      resolve(response.data);
+    })
+    .catch(function (error) {
+      console.log("[updateSetting]" + error);
+      reject(error);
+    });
+  })
 }
