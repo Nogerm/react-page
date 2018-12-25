@@ -90,7 +90,6 @@ export default class AutoReply extends Component {
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.stkrId}</Table.Cell>}
 											<Table.Cell>
                         <AutoReplyModal type='REMOVE_MSG' autoReply={autoReply} msgIdx={idx} callback={delayQuery}/>
-                        <AutoReplyModal type='UPDATE' autoReply={autoReply} msgIdx={idx} callback={delayQuery}/>
 											</Table.Cell>
 										</Table.Row>
 									)

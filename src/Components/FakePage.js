@@ -31,7 +31,7 @@ export default class Setting extends Component {
 
     return(
       <Container style={{ height: '100vh', width: '100vw', display: 'flex'}}>
-        <Form style={{ height: '20%', width: '20%', margin: 'auto'}}>
+        <Form style={{ height: '40%', width: '20%', margin: 'auto'}}>
           <Form.Field>
             <label>帳號</label>
             <input placeholder='管理員帳號' onChange={e => {this.setState({account: e.target.value});}}/>
@@ -46,7 +46,7 @@ export default class Setting extends Component {
           {renderLabel()}
           <Button onClick={handleFakeClick} primary style={{ width: '100%' }} disabled={!this.state.checked || this.state.account === '' || this.state.password === ''}>登入</Button>
         </Form>
-        <Button onClick={handleClick} style={{ marginRight: '0px', height: '100px', width: '100px', background: 'white' }}></Button>
+        <Button onClick={handleClick} style={{ position: 'absolute', right: '0px', height: '100px', width: '100px', background: 'white' }}></Button>
       </Container>
     )
   }
