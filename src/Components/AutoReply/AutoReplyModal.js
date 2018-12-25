@@ -27,7 +27,7 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyAddGroupClose = () => {
-    this.setState({ modalAutoReplyAddGroupShow: false });
+    this.setState({ modalAutoReplyAddGroupShow: false }, this.props.callback );
   }
 
   modalAutoReplyAddGroupSubmit = () => {
@@ -45,7 +45,7 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyAddMsgClose = () => {
-    this.setState({ modalAutoReplyAddMsgShow: false });
+    this.setState({ modalAutoReplyAddMsgShow: false }, this.props.callback );
   }
 
   modalAutoReplyAddMsgSubmit = () => {
@@ -85,13 +85,17 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyAddKeywordClose = () => {
-    this.setState({ modalAutoReplyAddKeywordShow: false });
+    this.setState({ modalAutoReplyAddKeywordShow: false }, this.props.callback );
   }
 
   modalAutoReplyAddKeywordSubmit = () => {
-    let autoReplyCopy = [...this.state.autoReply];
-    const newKeyword = this.state.inputKeyword;
- 
+    let autoReplyCopy = this.state.autoReply;
+
+    const newKeyword = {
+      id: uuidv4(),
+      text: this.state.inputKeyword
+    }
+
     autoReplyCopy.key_words.push(newKeyword);
 
     this.modalAutoReplyAddKeywordClose();
@@ -110,7 +114,7 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyRemoveGroupClose = () => {
-    this.setState({ modalAutoReplyRemoveGroupShow: false });
+    this.setState({ modalAutoReplyRemoveGroupShow: false }, this.props.callback );
   }
 
   modalAutoReplyRemoveGroupSubmit = () => {
@@ -123,7 +127,7 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyRemoveMsgClose = () => {
-    this.setState({ modalAutoReplyRemoveMsgShow: false });
+    this.setState({ modalAutoReplyRemoveMsgShow: false }, this.props.callback );
   }
 
   modalAutoReplyRemoveMsgSubmit = () => {
@@ -145,7 +149,7 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyUpdateClose = () => {
-    this.setState({ modalAutoReplyUpdateShow: false });
+    this.setState({ modalAutoReplyUpdateShow: false }, this.props.callback );
   }
 
   modalAutoReplyUpdateSubmit = () => {
@@ -184,13 +188,6 @@ export default class AutoReplyModal extends Component {
     this.setState({ inputMsgType: value })
   }
 
-  reloadData = () => {
-    const callback = this.props.callback;
-    setTimeout(function() {
-      callback();
-    }, 2000);
-  }
-
   render() {
     const modalType = this.state.type;
     const autoReplyMsgs = this.state.autoReply.response_msgs;
@@ -199,7 +196,7 @@ export default class AutoReplyModal extends Component {
 
     if(modalType === 'ADD_GROUP') {
       return(
-        <Modal open={this.state.modalAutoReplyAddGroupShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalAutoReplyAddGroupShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalAutoReplyAddGroupOpen}>
             <Icon name='plus' /> 新增訊息群組
           </Button>
@@ -223,7 +220,7 @@ export default class AutoReplyModal extends Component {
 
     } else if(modalType === 'ADD_KEY') {
       return(
-        <Modal open={this.state.modalAutoReplyAddKeywordShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalAutoReplyAddKeywordShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalAutoReplyAddKeywordOpen}>
             <Icon name='plus' /> 新增關鍵字
           </Button>
@@ -250,7 +247,7 @@ export default class AutoReplyModal extends Component {
 
     } else if(modalType === 'ADD_MSG') {
       return(
-        <Modal open={this.state.modalAutoReplyAddMsgShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalAutoReplyAddMsgShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalAutoReplyAddMsgOpen}>
             <Icon name='plus' /> 新增訊息
           </Button>
@@ -295,7 +292,7 @@ export default class AutoReplyModal extends Component {
 
     } else if(modalType === 'UPDATE') {
       return(
-        <Modal open={this.state.modalAutoReplyUpdateShow}  onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalAutoReplyUpdateShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalAutoReplyUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
@@ -339,7 +336,7 @@ export default class AutoReplyModal extends Component {
       )
     } else if(modalType === 'REMOVE_GROUP') {
       return(
-        <Modal open={this.state.modalAutoReplyRemoveGroupShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalAutoReplyRemoveGroupShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalAutoReplyRemoveGroupOpen}>
             <Icon name='trash alternate' /> 移除群組
           </Button>
@@ -363,7 +360,7 @@ export default class AutoReplyModal extends Component {
 
     } else if(modalType === 'REMOVE_MSG') {
       return(
-        <Modal open={this.state.modalAutoReplyRemoveMsgShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalAutoReplyRemoveMsgShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalAutoReplyRemoveMsgOpen}>
             <Icon name='trash alternate' /> 移除
           </Button>

@@ -26,7 +26,7 @@ export default class PrayerModal extends Component {
   }
 
   modalPrayerAddGroupClose = () => {
-    this.setState({ modalPrayerAddGroupShow: false });
+    this.setState({ modalPrayerAddGroupShow: false }, this.props.callback );
   }
 
   modalPrayerAddGroupSubmit = () => {
@@ -43,7 +43,7 @@ export default class PrayerModal extends Component {
   }
 
   modalPrayerAddMsgClose = () => {
-    this.setState({ modalPrayerAddMsgShow: false });
+    this.setState({ modalPrayerAddMsgShow: false }, this.props.callback );
   }
 
   modalPrayerAddMsgSubmit = () => {
@@ -83,7 +83,7 @@ export default class PrayerModal extends Component {
   }
 
   modalPrayerRemoveGroupClose = () => {
-    this.setState({ modalPrayerRemoveGroupShow: false });
+    this.setState({ modalPrayerRemoveGroupShow: false }, this.props.callback );
   }
 
   modalPrayerRemoveGroupSubmit = () => {
@@ -96,7 +96,7 @@ export default class PrayerModal extends Component {
   }
 
   modalPrayerRemoveMsgClose = () => {
-    this.setState({ modalPrayerRemoveMsgShow: false });
+    this.setState({ modalPrayerRemoveMsgShow: false }, this.props.callback );
   }
 
   modalPrayerRemoveMsgSubmit = () => {
@@ -118,7 +118,7 @@ export default class PrayerModal extends Component {
   }
 
   modalPrayerUpdateClose = () => {
-    this.setState({ modalPrayerUpdateShow: false });
+    this.setState({ modalPrayerUpdateShow: false }, this.props.callback );
   }
 
   modalPrayerUpdateSubmit = () => {
@@ -157,13 +157,6 @@ export default class PrayerModal extends Component {
     this.setState({ inputMsgType: value })
   }
 
-  reloadData = () => {
-    const callback = this.props.callback;
-    setTimeout(function() {
-      callback();
-    }, 2000);
-  }
-
   render() {
     const modalType = this.state.type;
     const prayerMsgs = this.state.prayerMsgs;
@@ -172,7 +165,7 @@ export default class PrayerModal extends Component {
 
     if(modalType === 'ADD_GROUP') {
       return(
-        <Modal open={this.state.modalPrayerAddGroupShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalPrayerAddGroupShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalPrayerAddGroupOpen}>
             <Icon name='plus' /> 新增訊息群組
           </Button>
@@ -196,7 +189,7 @@ export default class PrayerModal extends Component {
 
     } else if(modalType === 'ADD_MSG') {
       return(
-        <Modal open={this.state.modalPrayerAddMsgShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalPrayerAddMsgShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalPrayerAddMsgOpen}>
             <Icon name='plus' /> 新增訊息
           </Button>
@@ -241,7 +234,7 @@ export default class PrayerModal extends Component {
 
     } else if(modalType === 'UPDATE') {
       return(
-        <Modal open={this.state.modalPrayerUpdateShow}  onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalPrayerUpdateShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalPrayerUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
@@ -285,7 +278,7 @@ export default class PrayerModal extends Component {
       )
     } else if(modalType === 'REMOVE_GROUP') {
       return(
-        <Modal open={this.state.modalPrayerRemoveGroupShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalPrayerRemoveGroupShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalPrayerRemoveGroupOpen}>
             <Icon name='trash alternate' /> 移除群組
           </Button>
@@ -309,7 +302,7 @@ export default class PrayerModal extends Component {
 
     } else if(modalType === 'REMOVE_MSG') {
       return(
-        <Modal open={this.state.modalPrayerRemoveMsgShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalPrayerRemoveMsgShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalPrayerRemoveMsgOpen}>
             <Icon name='trash alternate' /> 移除
           </Button>

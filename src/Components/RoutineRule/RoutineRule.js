@@ -22,9 +22,16 @@ export default class RoutineRule extends Component {
     });
   }
 
+  delayQuery = () => {
+    const queryData = this.queryData;
+    setTimeout(() => {
+      queryData();
+    }, 2000);
+  }
+
   render() {
     const rules = this.state.routineRules;
-    const queryData = this.queryData;
+    const delayQuery = this.delayQuery;
 
     return(
       <Segment raised>
@@ -60,8 +67,8 @@ export default class RoutineRule extends Component {
                   <Table.Cell>{rule.routines[4].name}</Table.Cell>
                   <Table.Cell>{rule.routines[5].name}</Table.Cell>
                   <Table.Cell>
-                    <RoutineModal type='REMOVE' rule={rule} callback={queryData}/>
-                    <RoutineModal type='UPDATE' rule={rule} callback={queryData}/>
+                    <RoutineModal type='REMOVE' rule={rule} callback={delayQuery}/>
+                    <RoutineModal type='UPDATE' rule={rule} callback={delayQuery}/>
                   </Table.Cell>
                 </Table.Row>
               );
@@ -71,7 +78,7 @@ export default class RoutineRule extends Component {
           <Table.Footer fullWidth>
             <Table.Row>
               <Table.HeaderCell colSpan='8'>
-                <RoutineModal type='ADD' callback={queryData}/>
+                <RoutineModal type='ADD' callback={delayQuery}/>
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>

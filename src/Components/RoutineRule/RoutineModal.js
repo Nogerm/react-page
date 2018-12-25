@@ -25,7 +25,7 @@ export default class RoutineModal extends Component {
   }
 
   modalRuleAddClose = () => {
-    this.setState({ modalRuleAddShow: false });
+    this.setState({ modalRuleAddShow: false }, this.props.callback );
   }
 
   modalRuleAddSubmit = () => {
@@ -61,7 +61,7 @@ export default class RoutineModal extends Component {
   }
 
   modalRuleRemoveClose = () => {
-    this.setState({ modalRuleRemoveShow: false });
+    this.setState({ modalRuleRemoveShow: false }, this.props.callback );
   }
 
   modalRuleRemoveSubmit = () => {
@@ -74,7 +74,7 @@ export default class RoutineModal extends Component {
   }
 
   modalRuleUpdateClose = () => {
-    this.setState({ modalRuleUpdateShow: false });
+    this.setState({ modalRuleUpdateShow: false }, this.props.callback );
   }
 
   modalRuleUpdateSubmit = () => {
@@ -109,13 +109,6 @@ export default class RoutineModal extends Component {
     this.setState({ inputRuleType: value })
   }
 
-  reloadData = () => {
-    const callback = this.props.callback;
-    setTimeout(function() {
-      callback();
-    }, 2000);
-  }
-
   render() {
     const modalType = this.state.type;
     const ruleInfo = this.state.rule;
@@ -123,7 +116,7 @@ export default class RoutineModal extends Component {
 
     if(modalType === 'ADD') {
       return(
-        <Modal open={this.state.modalRuleAddShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalRuleAddShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalRuleAddOpen}>
             <Icon name='plus' /> 新增分享提醒
           </Button>
@@ -193,7 +186,7 @@ export default class RoutineModal extends Component {
 
     } else if(modalType === 'UPDATE') {
       return(
-        <Modal open={this.state.modalRuleUpdateShow}  onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalRuleUpdateShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalRuleUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
@@ -262,7 +255,7 @@ export default class RoutineModal extends Component {
       )
     } else if(modalType === 'REMOVE') {
       return(
-        <Modal open={this.state.modalRuleRemoveShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalRuleRemoveShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalRuleRemoveOpen}>
             <Icon name='trash alternate' /> 移除
           </Button>

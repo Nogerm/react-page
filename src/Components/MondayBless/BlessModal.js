@@ -26,7 +26,7 @@ export default class BlessModal extends Component {
   }
 
   modalBlessAddGroupClose = () => {
-    this.setState({ modalBlessAddGroupShow: false });
+    this.setState({ modalBlessAddGroupShow: false }, this.props.callback );
   }
 
   modalBlessAddGroupSubmit = () => {
@@ -43,7 +43,7 @@ export default class BlessModal extends Component {
   }
 
   modalBlessAddMsgClose = () => {
-    this.setState({ modalBlessAddMsgShow: false });
+    this.setState({ modalBlessAddMsgShow: false }, this.props.callback );
   }
 
   modalBlessAddMsgSubmit = () => {
@@ -83,7 +83,7 @@ export default class BlessModal extends Component {
   }
 
   modalBlessRemoveGroupClose = () => {
-    this.setState({ modalBlessRemoveGroupShow: false });
+    this.setState({ modalBlessRemoveGroupShow: false }, this.props.callback );
   }
 
   modalBlessRemoveGroupSubmit = () => {
@@ -96,7 +96,7 @@ export default class BlessModal extends Component {
   }
 
   modalBlessRemoveMsgClose = () => {
-    this.setState({ modalBlessRemoveMsgShow: false });
+    this.setState({ modalBlessRemoveMsgShow: false }, this.props.callback );
   }
 
   modalBlessRemoveMsgSubmit = () => {
@@ -118,7 +118,7 @@ export default class BlessModal extends Component {
   }
 
   modalBlessUpdateClose = () => {
-    this.setState({ modalBlessUpdateShow: false });
+    this.setState({ modalBlessUpdateShow: false }, this.props.callback );
   }
 
   modalBlessUpdateSubmit = () => {
@@ -157,13 +157,6 @@ export default class BlessModal extends Component {
     this.setState({ inputMsgType: value })
   }
 
-  reloadData = () => {
-    const callback = this.props.callback;
-    setTimeout(function() {
-      callback();
-    }, 2000);
-  }
-
   render() {
     const modalType = this.state.type;
     const blessMsgs = this.state.blessMsgs;
@@ -172,7 +165,7 @@ export default class BlessModal extends Component {
 
     if(modalType === 'ADD_GROUP') {
       return(
-        <Modal open={this.state.modalBlessAddGroupShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalBlessAddGroupShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalBlessAddGroupOpen}>
             <Icon name='plus' /> 新增訊息群組
           </Button>
@@ -196,7 +189,7 @@ export default class BlessModal extends Component {
 
     } else if(modalType === 'ADD_MSG') {
       return(
-        <Modal open={this.state.modalBlessAddMsgShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalBlessAddMsgShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalBlessAddMsgOpen}>
             <Icon name='plus' /> 新增訊息
           </Button>
@@ -241,7 +234,7 @@ export default class BlessModal extends Component {
 
     } else if(modalType === 'UPDATE') {
       return(
-        <Modal open={this.state.modalBlessUpdateShow}  onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalBlessUpdateShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalBlessUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
@@ -285,7 +278,7 @@ export default class BlessModal extends Component {
       )
     } else if(modalType === 'REMOVE_GROUP') {
       return(
-        <Modal open={this.state.modalBlessRemoveGroupShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalBlessRemoveGroupShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalBlessRemoveGroupOpen}>
             <Icon name='trash alternate' /> 移除群組
           </Button>
@@ -309,7 +302,7 @@ export default class BlessModal extends Component {
 
     } else if(modalType === 'REMOVE_MSG') {
       return(
-        <Modal open={this.state.modalBlessRemoveMsgShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalBlessRemoveMsgShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalBlessRemoveMsgOpen}>
             <Icon name='trash alternate' /> 移除
           </Button>

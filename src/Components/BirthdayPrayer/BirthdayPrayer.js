@@ -20,11 +20,18 @@ export default class BirthdayPrayer extends Component {
         birthdayPrayers: [...data]
       });
     });
+	}
+	
+	delayQuery = () => {
+    const queryData = this.queryData;
+    setTimeout(() => {
+      queryData();
+    }, 2000);
   }
 
   render() {
     const prayers = this.state.birthdayPrayers;
-    const queryData = this.queryData;
+		const delayQuery = this.delayQuery;
 
     return(
       <Segment raised>
@@ -41,7 +48,7 @@ export default class BirthdayPrayer extends Component {
                 <Table.Row>
                   <Table.HeaderCell colSpan='6'>
                     訊息群組#{index+1}
-                    <PrayerModal type='REMOVE_GROUP' prayerId={prayer._id} prayerMsgs={prayer.msgs} callback={queryData}/>
+                    <PrayerModal type='REMOVE_GROUP' prayerId={prayer._id} prayerMsgs={prayer.msgs} callback={delayQuery}/>
 									</Table.HeaderCell>
                 </Table.Row>
 								<Table.Row>
@@ -64,8 +71,8 @@ export default class BirthdayPrayer extends Component {
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.stkrId}</Table.Cell>}
 											<Table.Cell>
-                        <PrayerModal type='REMOVE_MSG' prayerId={prayer._id} prayerMsgs={prayer.msgs} msgIdx={idx} callback={queryData}/>
-                        <PrayerModal type='UPDATE' prayerId={prayer._id} prayerMsgs={prayer.msgs} msgIdx={idx} callback={queryData}/>
+                        <PrayerModal type='REMOVE_MSG' prayerId={prayer._id} prayerMsgs={prayer.msgs} msgIdx={idx} callback={delayQuery}/>
+                        <PrayerModal type='UPDATE' prayerId={prayer._id} prayerMsgs={prayer.msgs} msgIdx={idx} callback={delayQuery}/>
 											</Table.Cell>
 										</Table.Row>
 									)
@@ -75,7 +82,7 @@ export default class BirthdayPrayer extends Component {
 							<Table.Footer fullWidth>
 								<Table.Row>
 									<Table.HeaderCell colSpan='6'>
-                    <PrayerModal type='ADD_MSG' prayerId={prayer._id} prayerMsgs={prayer.msgs} callback={queryData}/>
+                    <PrayerModal type='ADD_MSG' prayerId={prayer._id} prayerMsgs={prayer.msgs} callback={delayQuery}/>
 									</Table.HeaderCell>
 								</Table.Row>
 							</Table.Footer>
@@ -83,7 +90,7 @@ export default class BirthdayPrayer extends Component {
 					)
         })}
         <Container style={{ height: '30px' }}>
-          <PrayerModal type='ADD_GROUP' callback={queryData}/>
+          <PrayerModal type='ADD_GROUP' callback={delayQuery}/>
         </Container>
 			</Segment>
     )

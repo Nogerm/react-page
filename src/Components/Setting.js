@@ -1,12 +1,18 @@
 import React, { Component}  from 'react';
-import { Segment, Checkbox, Grid } from 'semantic-ui-react';
+import { Segment, Checkbox, Grid, Divider, Header, Icon } from 'semantic-ui-react';
 
 export default class Setting extends Component {
 
 	render() {
 		
     return (
-			<Segment raised style={{ margin: '3em', padding: '3em' }}>
+			<Segment raised style={{ margin: '3em', paddingLeft: '3em', paddingRight: '3em'}}>
+        <Divider horizontal>
+					<Header as='h4'>
+						<Icon name='setting' />
+						  功能設定
+					</Header>
+				</Divider>
         <Grid columns={1} divided>
           <Grid.Row>
             <Checkbox toggle label='生日提醒'/>

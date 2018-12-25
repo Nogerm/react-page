@@ -22,9 +22,16 @@ export default class MondayBless extends Component {
     });
   }
 
+  delayQuery = () => {
+    const queryData = this.queryData;
+    setTimeout(() => {
+      queryData();
+    }, 2000);
+  }
+
   render() {
     const blesses = this.state.mondayBlesses;
-    const queryData = this.queryData;
+    const delayQuery = this.delayQuery;
 
     return(
       <Segment raised style={{ margin: '3em' }}>
@@ -41,7 +48,7 @@ export default class MondayBless extends Component {
                 <Table.Row>
                   <Table.HeaderCell colSpan='6'>
                     訊息群組#{index+1}
-                    <BlessModal type='REMOVE_GROUP' blessId={bless._id} blessMsgs={bless.msgs} callback={queryData}/>
+                    <BlessModal type='REMOVE_GROUP' blessId={bless._id} blessMsgs={bless.msgs} callback={delayQuery}/>
 									</Table.HeaderCell>
                 </Table.Row>
 								<Table.Row>
@@ -64,8 +71,8 @@ export default class MondayBless extends Component {
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.stkrId}</Table.Cell>}
 											<Table.Cell>
-                        <BlessModal type='REMOVE_MSG' blessId={bless._id} blessMsgs={bless.msgs} msgIdx={idx} callback={queryData}/>
-                        <BlessModal type='UPDATE' blessId={bless._id} blessMsgs={bless.msgs} msgIdx={idx} callback={queryData}/>
+                        <BlessModal type='REMOVE_MSG' blessId={bless._id} blessMsgs={bless.msgs} msgIdx={idx} callback={delayQuery}/>
+                        <BlessModal type='UPDATE' blessId={bless._id} blessMsgs={bless.msgs} msgIdx={idx} callback={delayQuery}/>
 											</Table.Cell>
 										</Table.Row>
 									)
@@ -75,7 +82,7 @@ export default class MondayBless extends Component {
 							<Table.Footer fullWidth>
 								<Table.Row>
 									<Table.HeaderCell colSpan='6'>
-                    <BlessModal type='ADD_MSG' blessId={bless._id} blessMsgs={bless.msgs} callback={queryData}/>
+                    <BlessModal type='ADD_MSG' blessId={bless._id} blessMsgs={bless.msgs} callback={delayQuery}/>
 									</Table.HeaderCell>
 								</Table.Row>
 							</Table.Footer>
@@ -83,7 +90,7 @@ export default class MondayBless extends Component {
 					)
         })}
         <Container style={{ height: '30px' }}>
-          <BlessModal type='ADD_GROUP' callback={queryData}/>
+          <BlessModal type='ADD_GROUP' callback={delayQuery}/>
         </Container>
 			</Segment>
     )

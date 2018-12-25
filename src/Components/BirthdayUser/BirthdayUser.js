@@ -22,9 +22,16 @@ export default class BirthdayUser extends Component {
     });
   }
 
+  delayQuery = () => {
+    const queryData = this.queryData;
+    setTimeout(() => {
+      queryData();
+    }, 2000);
+  }
+
   render() {
     const people = this.state.birthdayPeople;
-    const queryData = this.queryData;
+    const delayQuery = this.delayQuery;
 
     return(
       <Segment raised>
@@ -52,8 +59,8 @@ export default class BirthdayUser extends Component {
                   <Table.Cell>{person.birth_month}</Table.Cell>
                   <Table.Cell>{person.birth_day}</Table.Cell>
                   <Table.Cell>
-                    <UserModal type='REMOVE' person={person} callback={queryData}/>
-                    <UserModal type='UPDATE' person={person} callback={queryData}/>
+                    <UserModal type='REMOVE' person={person} callback={delayQuery}/>
+                    <UserModal type='UPDATE' person={person} callback={delayQuery}/>
                   </Table.Cell>
                 </Table.Row>
               );
@@ -63,7 +70,7 @@ export default class BirthdayUser extends Component {
           <Table.Footer fullWidth>
             <Table.Row>
               <Table.HeaderCell colSpan='4'>
-                <UserModal type='ADD' callback={queryData}/>
+                <UserModal type='ADD' callback={delayQuery}/>
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>

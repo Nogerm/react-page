@@ -22,9 +22,16 @@ export default class AutoReply extends Component {
     });
   }
 
+  delayQuery = () => {
+    const queryData = this.queryData;
+    setTimeout(() => {
+      queryData();
+    }, 2000);
+  }
+
   render() {
     const autoReplys = this.state.autoReplys;
-    const queryData = this.queryData;
+    const delayQuery = this.delayQuery;
 
     return(
       <Segment raised style={{ margin: '3em' }}>
@@ -41,7 +48,7 @@ export default class AutoReply extends Component {
                 <Table.Row>
                   <Table.HeaderCell colSpan='6'>
                     訊息群組#{index+1}
-                    <AutoReplyModal type='REMOVE_GROUP' autoReply={autoReply} callback={queryData}/>
+                    <AutoReplyModal type='REMOVE_GROUP' autoReply={autoReply} callback={delayQuery}/>
 									</Table.HeaderCell>
                 </Table.Row>
                 <Table.Row>
@@ -56,9 +63,9 @@ export default class AutoReply extends Component {
                   return (
                     <Table.Row key={keyword.id} >
                       <Table.Cell>{idx+1}</Table.Cell>
-											<Table.Cell colSpan='4'>{keyword}</Table.Cell>
+											<Table.Cell colSpan='4'>{keyword.text}</Table.Cell>
                       <Table.Cell>
-                        <AutoReplyModal type='REMOVE_MSG' autoReply={autoReply} msgIdx={idx} callback={queryData}/>
+                        <AutoReplyModal type='REMOVE_MSG' autoReply={autoReply} msgIdx={idx} callback={delayQuery}/>
                       </Table.Cell>
                     </Table.Row>
                   )
@@ -86,8 +93,8 @@ export default class AutoReply extends Component {
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.stkrId}</Table.Cell>}
 											<Table.Cell>
-                        <AutoReplyModal type='REMOVE_MSG' autoReply={autoReply} msgIdx={idx} callback={queryData}/>
-                        <AutoReplyModal type='UPDATE' autoReply={autoReply} msgIdx={idx} callback={queryData}/>
+                        <AutoReplyModal type='REMOVE_MSG' autoReply={autoReply} msgIdx={idx} callback={delayQuery}/>
+                        <AutoReplyModal type='UPDATE' autoReply={autoReply} msgIdx={idx} callback={delayQuery}/>
 											</Table.Cell>
 										</Table.Row>
 									)
@@ -97,8 +104,8 @@ export default class AutoReply extends Component {
 							<Table.Footer fullWidth>
 								<Table.Row>
 									<Table.HeaderCell colSpan='6'>
-                    <AutoReplyModal type='ADD_MSG' autoReply={autoReply} callback={queryData}/>
-                    <AutoReplyModal type='ADD_KEY' autoReply={autoReply} callback={queryData}/>
+                    <AutoReplyModal type='ADD_MSG' autoReply={autoReply} callback={delayQuery}/>
+                    <AutoReplyModal type='ADD_KEY' autoReply={autoReply} callback={delayQuery}/>
 									</Table.HeaderCell>
 								</Table.Row>
 							</Table.Footer>
@@ -106,7 +113,7 @@ export default class AutoReply extends Component {
 					)
         })}
         <Container style={{ height: '30px' }}>
-          <AutoReplyModal type='ADD_GROUP' callback={queryData}/>
+          <AutoReplyModal type='ADD_GROUP' callback={delayQuery}/>
         </Container>
 			</Segment>
     )

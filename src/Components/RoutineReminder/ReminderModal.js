@@ -26,7 +26,7 @@ export default class ReminderModal extends Component {
   }
 
   modalReminderAddGroupClose = () => {
-    this.setState({ modalReminderAddGroupShow: false });
+    this.setState({ modalReminderAddGroupShow: false }, this.props.callback );
   }
 
   modalReminderAddGroupSubmit = () => {
@@ -43,7 +43,7 @@ export default class ReminderModal extends Component {
   }
 
   modalReminderAddMsgClose = () => {
-    this.setState({ modalReminderAddMsgShow: false });
+    this.setState({ modalReminderAddMsgShow: false }, this.props.callback );
   }
 
   modalReminderAddMsgSubmit = () => {
@@ -83,7 +83,7 @@ export default class ReminderModal extends Component {
   }
 
   modalReminderRemoveGroupClose = () => {
-    this.setState({ modalReminderRemoveGroupShow: false });
+    this.setState({ modalReminderRemoveGroupShow: false }, this.props.callback );
   }
 
   modalReminderRemoveGroupSubmit = () => {
@@ -96,7 +96,7 @@ export default class ReminderModal extends Component {
   }
 
   modalReminderRemoveMsgClose = () => {
-    this.setState({ modalReminderRemoveMsgShow: false });
+    this.setState({ modalReminderRemoveMsgShow: false }, this.props.callback );
   }
 
   modalReminderRemoveMsgSubmit = () => {
@@ -118,7 +118,7 @@ export default class ReminderModal extends Component {
   }
 
   modalReminderUpdateClose = () => {
-    this.setState({ modalReminderUpdateShow: false });
+    this.setState({ modalReminderUpdateShow: false }, this.props.callback );
   }
 
   modalReminderUpdateSubmit = () => {
@@ -157,13 +157,6 @@ export default class ReminderModal extends Component {
     this.setState({ inputMsgType: value })
   }
 
-  reloadData = () => {
-    const callback = this.props.callback;
-    setTimeout(function() {
-      callback();
-    }, 2000);
-  }
-
   render() {
     const modalType = this.state.type;
     const reminderMsgs = this.state.reminderMsgs;
@@ -172,7 +165,7 @@ export default class ReminderModal extends Component {
 
     if(modalType === 'ADD_GROUP') {
       return(
-        <Modal open={this.state.modalReminderAddGroupShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalReminderAddGroupShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalReminderAddGroupOpen}>
             <Icon name='plus' /> 新增訊息群組
           </Button>
@@ -196,7 +189,7 @@ export default class ReminderModal extends Component {
 
     } else if(modalType === 'ADD_MSG') {
       return(
-        <Modal open={this.state.modalReminderAddMsgShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalReminderAddMsgShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalReminderAddMsgOpen}>
             <Icon name='plus' /> 新增訊息
           </Button>
@@ -241,7 +234,7 @@ export default class ReminderModal extends Component {
 
     } else if(modalType === 'UPDATE') {
       return(
-        <Modal open={this.state.modalReminderUpdateShow}  onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalReminderUpdateShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalReminderUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
@@ -285,7 +278,7 @@ export default class ReminderModal extends Component {
       )
     } else if(modalType === 'REMOVE_GROUP') {
       return(
-        <Modal open={this.state.modalReminderRemoveGroupShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalReminderRemoveGroupShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalReminderRemoveGroupOpen}>
             <Icon name='trash alternate' /> 移除群組
           </Button>
@@ -309,7 +302,7 @@ export default class ReminderModal extends Component {
 
     } else if(modalType === 'REMOVE_MSG') {
       return(
-        <Modal open={this.state.modalReminderRemoveMsgShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalReminderRemoveMsgShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalReminderRemoveMsgOpen}>
             <Icon name='trash alternate' /> 移除
           </Button>

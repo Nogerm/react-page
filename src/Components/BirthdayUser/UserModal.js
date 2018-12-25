@@ -22,7 +22,7 @@ export default class UserModal extends Component {
   }
 
   modalUserAddClose = () => {
-    this.setState({ modalUserAddShow: false });
+    this.setState({ modalUserAddShow: false }, this.props.callback);
   }
 
   modalUserAddSubmit = () => {
@@ -42,7 +42,7 @@ export default class UserModal extends Component {
   }
 
   modalUserRemoveClose = () => {
-    this.setState({ modalUserRemoveShow: false });
+    this.setState({ modalUserRemoveShow: false }, this.props.callback);
   }
 
   modalUserRemoveSubmit = () => {
@@ -55,7 +55,7 @@ export default class UserModal extends Component {
   }
 
   modalUserUpdateClose = () => {
-    this.setState({ modalUserUpdateShow: false });
+    this.setState({ modalUserUpdateShow: false }, this.props.callback );
   }
 
   modalUserUpdateSubmit = () => {
@@ -70,20 +70,13 @@ export default class UserModal extends Component {
     this.modalUserUpdateClose();
   }
 
-  reloadData = () => {
-    const callback = this.props.callback;
-    setTimeout(function() {
-      callback();
-    }, 2000);
-  }
-
   render() {
     const modalType = this.state.type;
     const personInfo = this.state.person;
 
     if(modalType === 'ADD') {
       return(
-        <Modal open={this.state.modalUserAddShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalUserAddShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalUserAddOpen}>
             <Icon name='user plus' /> 新增生日提醒
           </Button>
@@ -124,7 +117,7 @@ export default class UserModal extends Component {
 
     } else if(modalType === 'UPDATE') {
       return(
-        <Modal open={this.state.modalUserUpdateShow}  onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalUserUpdateShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalUserUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
@@ -164,7 +157,7 @@ export default class UserModal extends Component {
       )
     } else if(modalType === 'REMOVE') {
       return(
-        <Modal open={this.state.modalUserRemoveShow} onUnmount={this.reloadData} trigger={
+        <Modal open={this.state.modalUserRemoveShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalUserRemoveOpen}>
             <Icon name='trash alternate' /> 移除
           </Button>
