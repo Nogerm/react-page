@@ -88,7 +88,7 @@ class App extends Component {
 
     return (
       <Grid>
-        <Grid.Column width={3} style={{ 'background': '#4682B4', 'paddingRight': 0 }}>
+        <Grid.Column width={3} style={{ background: '#4682B4', paddingRight: 0, height: '100vh' }}>
           {renderMenu()}
         </Grid.Column>
         <Grid.Column stretched width={12}>
