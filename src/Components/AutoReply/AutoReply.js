@@ -38,7 +38,7 @@ export default class AutoReply extends Component {
 				<Divider horizontal>
 					<Header as='h4'>
 						<Icon name='file text' />
-						  自動回應訊息
+						  自動回應訊息(隨機回應一則訊息)
 					</Header>
 				</Divider>
 				{autoReplys.map(function(autoReply, index){
@@ -46,14 +46,13 @@ export default class AutoReply extends Component {
 						<Table celled key={autoReply._id}>
 							<Table.Header>
                 <Table.Row>
-                  <Table.HeaderCell colSpan='6'>
+                  <Table.HeaderCell colSpan='5'>
                     訊息群組#{index+1}
                     <AutoReplyModal type='REMOVE_GROUP' autoReply={autoReply} callback={delayQuery}/>
 									</Table.HeaderCell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.HeaderCell>順序</Table.HeaderCell>
-                  <Table.HeaderCell style={{ width: '250px' }}  colSpan='4'>文字訊息</Table.HeaderCell>
+                  <Table.HeaderCell style={{ width: '250px' }} colSpan='4'>文字訊息</Table.HeaderCell>
                   <Table.HeaderCell style={{ width: '250px' }}>操作</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
@@ -62,7 +61,6 @@ export default class AutoReply extends Component {
                 {autoReply.key_words.map(function(keyword, idx){
                   return (
                     <Table.Row key={keyword.id} >
-                      <Table.Cell>{idx+1}</Table.Cell>
 											<Table.Cell colSpan='4'>{keyword.text}</Table.Cell>
                       <Table.Cell>
                         <AutoReplyModal type='REMOVE_MSG' autoReply={autoReply} msgIdx={idx} callback={delayQuery}/>
@@ -74,7 +72,6 @@ export default class AutoReply extends Component {
 
               <Table.Header>
 								<Table.Row>
-                  <Table.HeaderCell>順序</Table.HeaderCell>
 									<Table.HeaderCell>類別</Table.HeaderCell>
 									<Table.HeaderCell style={{ width: '250px' }}>文字訊息</Table.HeaderCell>
 									<Table.HeaderCell>貼圖包序號</Table.HeaderCell>
@@ -87,7 +84,6 @@ export default class AutoReply extends Component {
 								{autoReply.response_msgs.map(function(msg, idx){
 									return (
 										<Table.Row key={msg.id} >
-                      <Table.Cell>{idx+1}</Table.Cell>
 											<Table.Cell>{msg.isText ? "文字" : "貼圖"}</Table.Cell>
 											{msg.isText ? <Table.Cell>{msg.text}</Table.Cell> : <Table.Cell/>}
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
@@ -103,7 +99,7 @@ export default class AutoReply extends Component {
 
 							<Table.Footer fullWidth>
 								<Table.Row>
-									<Table.HeaderCell colSpan='6'>
+									<Table.HeaderCell colSpan='5'>
                     <AutoReplyModal type='ADD_MSG' autoReply={autoReply} callback={delayQuery}/>
                     <AutoReplyModal type='ADD_KEY' autoReply={autoReply} callback={delayQuery}/>
 									</Table.HeaderCell>

@@ -249,7 +249,7 @@ export default class AutoReplyModal extends Component {
       return(
         <Modal open={this.state.modalAutoReplyAddMsgShow} trigger={
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalAutoReplyAddMsgOpen}>
-            <Icon name='plus' /> 新增訊息
+            <Icon name='plus' /> 新增回應訊息
           </Button>
           }>
           <Modal.Header>新增訊息</Modal.Header>
