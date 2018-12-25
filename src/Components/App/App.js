@@ -7,13 +7,17 @@ import Routine from './../Routine';
 import MondayBless from './../MondayBless/MondayBless';
 import AutoReply from './../AutoReply/AutoReply';
 import Setting from './../Setting';
+import FakePage from './../FakePage';
 import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
 
-  state = { 
+  state = {
+    clickCount: 0,
     activeItem: '生日提醒' 
   }
+
+  handleHiddenBtnClick = (e, { name }) => this.setState({ clickCount: this.state.clickCount +1 });
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
@@ -82,7 +86,7 @@ class App extends Component {
     }
   }
 
-  render() {
+  renderDashboard = () => {
     const renderChild = this.renderChild;
     const renderMenu = this.renderMenu;
 
@@ -96,6 +100,23 @@ class App extends Component {
         </Grid.Column>
       </Grid>
     );
+  }
+
+  render() {
+    const renderDashboard = this.renderDashboard;
+    const handleHiddenBtnClick = this.handleHiddenBtnClick;
+
+    if(this.state.clickCount > 10) {
+      return(
+        <Container>
+          {renderDashboard()}
+        </Container>
+      )
+    } else {
+      return(
+        <FakePage callback={handleHiddenBtnClick}/>
+      )
+    }
   }
 }
 

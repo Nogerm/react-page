@@ -201,19 +201,19 @@ export default class RoutineModal extends Component {
                     label='單數月'
                     value='odd'
                     checked={ruleInfo.month === 'odd'}
-                    onChange={radioChange}
+                    disabled={ruleInfo.month !== 'odd'}
                   />
                   <Form.Radio
                     label='雙數月'
                     value='even'
                     checked={ruleInfo.month === 'even'}
-                    onChange={radioChange}
+                    disabled={ruleInfo.month !== 'even'}
                   />
                   <Form.Radio
                     label='全部月份'
                     value='all'
                     checked={ruleInfo.month === 'all'}
-                    onChange={radioChange}
+                    disabled={ruleInfo.month !== 'all'}
                   />
                 </Form.Group>
                 <Form.Field>
