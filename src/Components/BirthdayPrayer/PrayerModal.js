@@ -235,7 +235,7 @@ export default class PrayerModal extends Component {
     } else if(modalType === 'UPDATE') {
       return(
         <Modal open={this.state.modalPrayerUpdateShow} trigger={
-          <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalPrayerUpdateOpen}>
+          <Button floated='right' icon labelPosition='left' color='vk' size='small' onClick={this.modalPrayerUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
           }>

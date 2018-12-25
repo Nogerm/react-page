@@ -118,7 +118,7 @@ export default class UserModal extends Component {
     } else if(modalType === 'UPDATE') {
       return(
         <Modal open={this.state.modalUserUpdateShow} trigger={
-          <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalUserUpdateOpen}>
+          <Button floated='right' icon labelPosition='left' color='vk' size='small' onClick={this.modalUserUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
           }>

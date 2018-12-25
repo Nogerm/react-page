@@ -187,7 +187,7 @@ export default class RoutineModal extends Component {
     } else if(modalType === 'UPDATE') {
       return(
         <Modal open={this.state.modalRuleUpdateShow} trigger={
-          <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalRuleUpdateOpen}>
+          <Button floated='right' icon labelPosition='left' color='vk' size='small' onClick={this.modalRuleUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
           }>

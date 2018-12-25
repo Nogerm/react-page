@@ -235,7 +235,7 @@ export default class ReminderModal extends Component {
     } else if(modalType === 'UPDATE') {
       return(
         <Modal open={this.state.modalReminderUpdateShow} trigger={
-          <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalReminderUpdateOpen}>
+          <Button floated='right' icon labelPosition='left' color='vk' size='small' onClick={this.modalReminderUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
           }>

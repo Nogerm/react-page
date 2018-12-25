@@ -235,7 +235,7 @@ export default class BlessModal extends Component {
     } else if(modalType === 'UPDATE') {
       return(
         <Modal open={this.state.modalBlessUpdateShow} trigger={
-          <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalBlessUpdateOpen}>
+          <Button floated='right' icon labelPosition='left' color='vk' size='small' onClick={this.modalBlessUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
           }>

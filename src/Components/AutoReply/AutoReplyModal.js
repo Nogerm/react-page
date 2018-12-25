@@ -293,7 +293,7 @@ export default class AutoReplyModal extends Component {
     } else if(modalType === 'UPDATE') {
       return(
         <Modal open={this.state.modalAutoReplyUpdateShow} trigger={
-          <Button floated='right' icon labelPosition='left' primary size='small' onClick={this.modalAutoReplyUpdateOpen}>
+          <Button floated='right' icon labelPosition='left' color='vk' size='small' onClick={this.modalAutoReplyUpdateOpen}>
             <Icon name='pencil alternate' /> 編輯
           </Button>
           }>
