@@ -2,8 +2,8 @@ import axios from 'axios';
 
 //Mongo DB
 const BASE_URL = 'https://api.mlab.com/api/1/';
-const API_KEY = '6ibiq_TR4zPfOIaRWNvlknaHWYDpyGLQ';
-const dbName = 'heroku_0tvjhrct';
+const API_KEY = 'MfIcJH19fIUm4phoxgzDLfAPsP0q8TSd';
+const dbName = 'heroku_hq9fqmdz';
 
 //Collections
 const BIRTHDAY_PERSON = 'birthday_person';
@@ -49,8 +49,7 @@ export const addBirthdayPerson = function(newData) {
 	  return new Promise((resolve, reject) => {
 		  axios.post(BIRTHDAY_PERSON_URL + '?apiKey=' + API_KEY, {
       _id: newData.id,
-		  firstname: newData.firstname,
-		  lastname: newData.lastname,
+		  name: newData.name,
 		  birth_month: newData.birth_month,
 		  birth_day: newData.birth_day
 		})
@@ -68,8 +67,7 @@ export const addBirthdayPerson = function(newData) {
 export const updateBirthdayPerson = function(newData) {
 	return new Promise((resolve, reject) => {
 		axios.put(BIRTHDAY_PERSON_URL + '/' + newData.id + '?apiKey=' + API_KEY, {
-        firstname: newData.firstname,
-        lastname: newData.lastname,
+        name: newData.name,
         birth_month: newData.birth_month,
         birth_day: newData.birth_day
 			})

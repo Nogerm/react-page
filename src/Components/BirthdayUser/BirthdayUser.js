@@ -55,7 +55,7 @@ export default class BirthdayUser extends Component {
             {people.map(function(person){
               return (
                 <Table.Row key={person._id} >
-                  <Table.Cell>{person.firstname}</Table.Cell>
+                  <Table.Cell>{person.name}</Table.Cell>
                   <Table.Cell>{person.birth_month}</Table.Cell>
                   <Table.Cell>{person.birth_day}</Table.Cell>
                   <Table.Cell>

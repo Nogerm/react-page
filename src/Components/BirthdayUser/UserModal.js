@@ -11,8 +11,7 @@ export default class UserModal extends Component {
     modalUserAddShow: false,
     modalUserRemoveShow: false,
     modalUserUpdateShow: false,
-    inputFirstname: '',
-    inputLastName: '',
+    inputName: '',
     inputBirthMonth: '',
     inputBirthDay: '',
   }
@@ -28,8 +27,7 @@ export default class UserModal extends Component {
   modalUserAddSubmit = () => {
     const newData = {
       id: uuidv4(),
-      firstname: this.state.inputFirstname,
-      lastname: this.state.inputLastName,
+      name: this.state.inputName,
       birth_month: this.state.inputBirthMonth,
       birth_day: this.state.inputBirthDay
     }
@@ -61,8 +59,7 @@ export default class UserModal extends Component {
   modalUserUpdateSubmit = () => {
     const newData = {
       id: this.state.person._id,
-      firstname: (this.state.inputFirstname === '') ? this.state.person.firstname : this.state.inputFirstname,
-      lastname: (this.state.inputLastName === '') ? this.state.person.lastname : this.state.inputLastName,
+      name: (this.state.inputName === '') ? this.state.person.name : this.state.inputName,
       birth_month: (this.state.inputBirthMonth === '') ? this.state.person.birth_month : this.state.inputBirthMonth,
       birth_day: (this.state.inputBirthDay === '') ? this.state.person.birth_day : this.state.inputBirthDay
     }
@@ -87,11 +84,7 @@ export default class UserModal extends Component {
               <Form>
                 <Form.Field>
                   <label>名字</label>
-                  <Input label={{ icon: 'asterisk' }} labelPosition='left corner' placeholder='名字' onChange={e => {this.setState({inputFirstname: e.target.value});}} />
-                </Form.Field>
-                <Form.Field>
-                  <label>姓氏</label>
-                  <Input placeholder='姓氏' onChange={e => {this.setState({inputLastName: e.target.value});}} />
+                  <Input label={{ icon: 'asterisk' }} labelPosition='left corner' placeholder='名字' onChange={e => {this.setState({inputName: e.target.value});}} />
                 </Form.Field>
                 <Form.Field>
                   <label>月份</label>
@@ -128,11 +121,7 @@ export default class UserModal extends Component {
               <Form>
                 <Form.Field>
                   <label>名字</label>
-                  <input placeholder={personInfo.firstname.toString()} onChange={e => {this.setState({inputFirstname: e.target.value});}} />
-                </Form.Field>
-                <Form.Field>
-                  <label>姓氏</label>
-                  <input placeholder={personInfo.lastname.toString()} onChange={e => {this.setState({inputLastName: e.target.value});}}/>
+                  <input placeholder={personInfo.name.toString()} onChange={e => {this.setState({inputName: e.target.value});}} />
                 </Form.Field>
                 <Form.Field>
                   <label>月份</label>
@@ -165,7 +154,7 @@ export default class UserModal extends Component {
           <Modal.Header>移除生日提醒</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              <p>確定要刪除{personInfo.firstname}的生日?</p>
+              <p>確定要刪除{personInfo.name}的生日?</p>
             </Modal.Description>
             <Modal.Actions style={{ padding: '3em' }}>
               <Button floated='right' color='google plus' onClick={this.modalUserRemoveSubmit}>
