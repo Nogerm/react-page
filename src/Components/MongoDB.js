@@ -398,7 +398,7 @@ export const getAutoReply = function() {
 export const addAutoReply = function(newData) {
   return new Promise((resolve, reject) => {
       axios.post(AUTO_RESPONSE_URL + '?apiKey=' + API_KEY, {
-      _id: newData._id,
+      _id: newData.id,
 			key_words: [...newData.key_words],
 			response_msgs: [...newData.response_msgs]
     })
