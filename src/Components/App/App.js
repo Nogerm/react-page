@@ -51,8 +51,8 @@ class App extends Component {
             onClick={this.handleItemClick}
           />
           <Menu.Item
-            name='功能設定'
-            active={activeItem === '功能設定'}
+            name='功能開關'
+            active={activeItem === '功能開關'}
             onClick={this.handleItemClick}
           />
         </Menu>
@@ -79,7 +79,7 @@ class App extends Component {
       return (
         <MondayBless/>
       )
-    } else if(activeItem === '功能設定') {
+    } else if(activeItem === '功能開關') {
       return (
         <Setting/>
       )

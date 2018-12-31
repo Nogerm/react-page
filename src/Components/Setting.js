@@ -60,7 +60,7 @@ export default class Setting extends Component {
         <Divider horizontal>
 					<Header as='h4'>
 						<Icon name='setting' />
-						  功能設定
+						  功能開關
 					</Header>
 				</Divider>
         <Grid columns={1} divided>

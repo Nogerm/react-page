@@ -52,7 +52,7 @@ export default class AutoReply extends Component {
 									</Table.HeaderCell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.HeaderCell style={{ width: '250px' }} colSpan='4'>文字訊息</Table.HeaderCell>
+                  <Table.HeaderCell style={{ width: '250px' }} colSpan='4'>關鍵字</Table.HeaderCell>
                   <Table.HeaderCell style={{ width: '250px' }}>操作</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
@@ -73,7 +73,7 @@ export default class AutoReply extends Component {
               <Table.Header>
 								<Table.Row>
 									<Table.HeaderCell>類別</Table.HeaderCell>
-									<Table.HeaderCell style={{ width: '250px' }}>文字訊息</Table.HeaderCell>
+									<Table.HeaderCell style={{ width: '250px' }}>回應訊息</Table.HeaderCell>
 									<Table.HeaderCell>貼圖包序號</Table.HeaderCell>
 									<Table.HeaderCell>貼圖序號</Table.HeaderCell>
 									<Table.HeaderCell style={{ width: '250px' }}>操作</Table.HeaderCell>
