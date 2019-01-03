@@ -258,10 +258,10 @@ export default class PrayerModal extends Component {
                     disabled={prayerMsgs[prayerMsgIdx].isText === true}
                   />
                 </Form.Group>
-                <Form.TextArea label='文字訊息' placeholder={prayerMsgs[prayerMsgIdx].text} disabled={prayerMsgs[prayerMsgIdx].isText === false} onChange={e => {this.setState({inputMsgContent: e.target.value});}}/>
+                <Form.TextArea label='文字訊息' placeholder={prayerMsgs[prayerMsgIdx].text} disabled={prayerMsgs[prayerMsgIdx].isText === false} onChange={e => {this.setState({inputMsgType: 'text', inputMsgContent: e.target.value});}}/>
                 <Form.Group widths='equal'>
-                  <Form.Input fluid label='貼圖包序號' placeholder={prayerMsgs[prayerMsgIdx].pkgId} disabled={prayerMsgs[prayerMsgIdx].isText === true} onChange={e => {this.setState({inputPkgId: e.target.value});}}/>
-                  <Form.Input fluid label='貼圖序號' placeholder={prayerMsgs[prayerMsgIdx].stkrId} disabled={prayerMsgs[prayerMsgIdx].isText === true} onChange={e => {this.setState({inputStkrId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖包序號' placeholder={prayerMsgs[prayerMsgIdx].pkgId} disabled={prayerMsgs[prayerMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖序號' placeholder={prayerMsgs[prayerMsgIdx].stkrId} disabled={prayerMsgs[prayerMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
                 </Form.Group>
               </Form>
             </Modal.Description>

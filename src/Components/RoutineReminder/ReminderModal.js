@@ -258,10 +258,10 @@ export default class ReminderModal extends Component {
                     disabled={reminderMsgs[reminderMsgIdx].isText === true}
                   />
                 </Form.Group>
-                <Form.TextArea label='文字訊息' placeholder={reminderMsgs[reminderMsgIdx].text} disabled={reminderMsgs[reminderMsgIdx].isText === false} onChange={e => {this.setState({inputMsgContent: e.target.value});}}/>
+                <Form.TextArea label='文字訊息' placeholder={reminderMsgs[reminderMsgIdx].text} disabled={reminderMsgs[reminderMsgIdx].isText === false} onChange={e => {this.setState({inputMsgType: 'text', inputMsgContent: e.target.value});}}/>
                 <Form.Group widths='equal'>
-                  <Form.Input fluid label='貼圖包序號' placeholder={reminderMsgs[reminderMsgIdx].pkgId} disabled={reminderMsgs[reminderMsgIdx].isText === true} onChange={e => {this.setState({inputPkgId: e.target.value});}}/>
-                  <Form.Input fluid label='貼圖序號' placeholder={reminderMsgs[reminderMsgIdx].stkrId} disabled={reminderMsgs[reminderMsgIdx].isText === true} onChange={e => {this.setState({inputStkrId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖包序號' placeholder={reminderMsgs[reminderMsgIdx].pkgId} disabled={reminderMsgs[reminderMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖序號' placeholder={reminderMsgs[reminderMsgIdx].stkrId} disabled={reminderMsgs[reminderMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
                 </Form.Group>
               </Form>
             </Modal.Description>

@@ -258,10 +258,10 @@ export default class BlessModal extends Component {
                     disabled={blessMsgs[blessMsgIdx].isText === true}
                   />
                 </Form.Group>
-                <Form.TextArea label='文字訊息' placeholder={blessMsgs[blessMsgIdx].text} disabled={blessMsgs[blessMsgIdx].isText === false} onChange={e => {this.setState({inputMsgContent: e.target.value});}}/>
+                <Form.TextArea label='文字訊息' placeholder={blessMsgs[blessMsgIdx].text} disabled={blessMsgs[blessMsgIdx].isText === false} onChange={e => {this.setState({inputMsgType: 'text', inputMsgContent: e.target.value});}}/>
                 <Form.Group widths='equal'>
-                  <Form.Input fluid label='貼圖包序號' placeholder={blessMsgs[blessMsgIdx].pkgId} disabled={blessMsgs[blessMsgIdx].isText === true} onChange={e => {this.setState({inputPkgId: e.target.value});}}/>
-                  <Form.Input fluid label='貼圖序號' placeholder={blessMsgs[blessMsgIdx].stkrId} disabled={blessMsgs[blessMsgIdx].isText === true} onChange={e => {this.setState({inputStkrId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖包序號' placeholder={blessMsgs[blessMsgIdx].pkgId} disabled={blessMsgs[blessMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖序號' placeholder={blessMsgs[blessMsgIdx].stkrId} disabled={blessMsgs[blessMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
                 </Form.Group>
               </Form>
             </Modal.Description>
