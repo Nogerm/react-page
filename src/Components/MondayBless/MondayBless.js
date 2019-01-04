@@ -71,8 +71,8 @@ export default class MondayBless extends Component {
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.stkrId}</Table.Cell>}
 											<Table.Cell>
-                        <BlessModal type='REMOVE_MSG' blessId={bless._id} blessMsgs={bless.msgs} msgIdx={idx} callback={delayQuery}/>
-                        <BlessModal type='UPDATE' blessId={bless._id} blessMsgs={bless.msgs} msgIdx={idx} callback={delayQuery}/>
+                        <BlessModal type='REMOVE_MSG' blessId={bless._id} blessMsg={msg} callback={delayQuery}/>
+                        <BlessModal type='UPDATE' blessId={bless._id} blessMsg={msg} callback={delayQuery}/>
 											</Table.Cell>
 										</Table.Row>
 									)

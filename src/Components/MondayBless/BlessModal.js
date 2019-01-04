@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Icon, Modal, Form } from 'semantic-ui-react'
-import { addMondayBless, updateMondayBless, removeMondayBless } from '../MongoDB';
+import { getMondayBless, addMondayBless, updateMondayBless, removeMondayBless } from '../MongoDB';
 const uuidv4 = require('uuid/v4');
 
 export default class BlessModal extends Component {
@@ -8,8 +8,9 @@ export default class BlessModal extends Component {
   state = {
     type: this.props.type,
     blessId: this.props.blessId || '',
-    blessMsgs: this.props.blessMsgs || [],
-    msgIdx: this.props.msgIdx || 0,
+    blessMsgs: [],
+    blessMsg: this.props.blessMsg || '',
+    msgId: this.props.msgId || '',
     modalBlessAddGroupShow: false,
     modalBlessAddMsgShow: false,
     modalBlessRemoveGroupShow: false,
@@ -39,7 +40,16 @@ export default class BlessModal extends Component {
   }
 
   modalBlessAddMsgOpen = () => {
-    this.setState({ modalBlessAddMsgShow: true });
+    this.setState({
+      modalBlessAddMsgShow: true
+    }, () => {
+      getMondayBless().then(data => {
+        const msgGroup = data.find(group => group._id === this.state.blessId);
+        this.setState({
+          blessMsgs: [...msgGroup.msgs]
+        });
+      });
+    });
   }
 
   modalBlessAddMsgClose = () => {
@@ -67,13 +77,13 @@ export default class BlessModal extends Component {
     }
 
     msgs.push(newData);
-    this.modalBlessAddMsgClose();
     updateMondayBless(this.state.blessId, msgs)
     .then(() => {
       this.setState({
         blessMsgs: msgs
       }, () => {
         console.log("NEW STATE: "+JSON.stringify(this.state.blessMsgs));
+        this.modalBlessAddMsgClose();
       });
     });
   }
@@ -92,7 +102,16 @@ export default class BlessModal extends Component {
   }
 
   modalBlessRemoveMsgOpen = () => {
-    this.setState({ modalBlessRemoveMsgShow: true });
+    this.setState({ 
+      modalBlessRemoveMsgShow: true
+    }, () => {
+      getMondayBless().then(data => {
+        const msgGroup = data.find(group => group._id === this.state.blessId);
+        this.setState({
+          blessMsgs: [...msgGroup.msgs],
+        });
+      });
+    });
   }
 
   modalBlessRemoveMsgClose = () => {
@@ -101,20 +120,31 @@ export default class BlessModal extends Component {
 
   modalBlessRemoveMsgSubmit = () => {
     let msgs = [...this.state.blessMsgs];
-    msgs.splice(this.state.msgIdx, 1);
-    this.modalBlessRemoveMsgClose();
+    const updateIdx = msgs.findIndex(item => item.id === this.state.blessMsg.id);
+    msgs.splice(updateIdx, 1);
     updateMondayBless(this.state.blessId, msgs)
     .then(() => {
       this.setState({
         blessMsgs: msgs
       }, () => {
         console.log("NEW STATE: "+JSON.stringify(this.state.blessMsgs));
+        this.modalBlessRemoveMsgClose();
       });
     });
   }
 
   modalBlessUpdateOpen = () => {
-    this.setState({ modalBlessUpdateShow: true });
+    this.setState({ 
+      modalBlessUpdateShow: true 
+    }, () => {
+      getMondayBless().then(data => {
+        console.log("[BlessModal queryData]" + JSON.stringify(data));
+        const msgGroup = data.find(group => group._id === this.state.blessId);
+        this.setState({
+          blessMsgs: [...msgGroup.msgs],
+        });
+      });
+    });
   }
 
   modalBlessUpdateClose = () => {
@@ -141,14 +171,15 @@ export default class BlessModal extends Component {
       }
     }
 
-    msgs.splice(this.state.msgIdx, 1, newData);
-    this.modalBlessUpdateClose();
+    const updateIdx = msgs.findIndex(item => item.id === this.state.blessMsg.id);
+    msgs.splice(updateIdx, 1, newData);
     updateMondayBless(this.state.blessId, msgs)
     .then(() => {
       this.setState({
         blessMsgs: msgs
       }, () => {
         console.log("NEW STATE: "+JSON.stringify(this.state.blessMsgs));
+        this.modalBlessUpdateClose();
       });
     });
   }
@@ -159,8 +190,7 @@ export default class BlessModal extends Component {
 
   render() {
     const modalType = this.state.type;
-    const blessMsgs = this.state.blessMsgs;
-    const blessMsgIdx = this.state.msgIdx;
+    const blessMsg = this.state.blessMsg;
     const radioChange = this.radioChange;
 
     if(modalType === 'ADD_GROUP') {
@@ -248,20 +278,20 @@ export default class BlessModal extends Component {
                   <Form.Radio
                     label='文字'
                     value='text'
-                    checked={blessMsgs[blessMsgIdx].isText === true}
-                    disabled={blessMsgs[blessMsgIdx].isText === false}
+                    checked={blessMsg.isText === true}
+                    disabled={blessMsg.isText === false}
                   />
                   <Form.Radio
                     label='貼圖'
                     value='sticker'
-                    checked={blessMsgs[blessMsgIdx].isText === false}
-                    disabled={blessMsgs[blessMsgIdx].isText === true}
+                    checked={blessMsg.isText === false}
+                    disabled={blessMsg.isText === true}
                   />
                 </Form.Group>
-                <Form.TextArea label='文字訊息' placeholder={blessMsgs[blessMsgIdx].text} disabled={blessMsgs[blessMsgIdx].isText === false} onChange={e => {this.setState({inputMsgType: 'text', inputMsgContent: e.target.value});}}/>
+                <Form.TextArea label='文字訊息' placeholder={blessMsg.text} disabled={blessMsg.isText === false} onChange={e => {this.setState({inputMsgType: 'text', inputMsgContent: e.target.value});}}/>
                 <Form.Group widths='equal'>
-                  <Form.Input fluid label='貼圖包序號' placeholder={blessMsgs[blessMsgIdx].pkgId} disabled={blessMsgs[blessMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
-                  <Form.Input fluid label='貼圖序號' placeholder={blessMsgs[blessMsgIdx].stkrId} disabled={blessMsgs[blessMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖包序號' placeholder={blessMsg.pkgId} disabled={blessMsg.isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖序號' placeholder={blessMsg.stkrId} disabled={blessMsg.isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
                 </Form.Group>
               </Form>
             </Modal.Description>
