@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { Button, Icon, Modal, Form, Input } from 'semantic-ui-react'
-import { addAutoReply, updateAutoReply, removeAutoReply } from '../MongoDB';
+import { getAutoReply, addAutoReply, updateAutoReply, removeAutoReply } from '../MongoDB';
 const uuidv4 = require('uuid/v4');
 
 export default class AutoReplyModal extends Component {
 
   state = {
     type: this.props.type,
-    autoReply: this.props.autoReply || '',
-    msgIdx: this.props.msgIdx || 0,
+    autoReplyId: this.props.autoReplyId || '',
+    autoReplyKeywords: [],
+    autoReplyMessages: [],
+    autoReplyKeyword: this.props.autoReplyKeyword || '',
+    autoReplyMessage: this.props.autoReplyMessage || '',
     modalAutoReplyAddGroupShow: false,
     modalAutoReplyAddMsgShow: false,
     modalAutoReplyAddKeywordShow: false,
     modalAutoReplyRemoveGroupShow: false,
+    modalAutoReplyRemoveKeywordShow: false,
     modalAutoReplyRemoveMsgShow: false,
     modalAutoReplyUpdateShow: false,
     inputMsgType: '',
@@ -41,7 +45,17 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyAddMsgOpen = () => {
-    this.setState({ modalAutoReplyAddMsgShow: true });
+    this.setState({ 
+      modalAutoReplyAddMsgShow: true
+    }, () => {
+      getAutoReply().then(data => {
+        const msgGroup = data.find(group => group._id === this.state.autoReplyId);
+        this.setState({
+          autoReplyKeywords: [...msgGroup.key_words],
+          autoReplyMessages: [...msgGroup.response_msgs]
+        });
+      });
+    });
   }
 
   modalAutoReplyAddMsgClose = () => {
@@ -49,7 +63,7 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyAddMsgSubmit = () => {
-    let autoReplyCopy = this.state.autoReply;
+    let msgs = [...this.state.autoReplyMessages];
     let newMsg = '';
     const isText = (this.state.inputMsgType === 'text') ? true : false;
 
@@ -67,21 +81,36 @@ export default class AutoReplyModal extends Component {
         stkrId: this.state.inputStkrId
       }
     }
-    autoReplyCopy.response_msgs.push(newMsg);
+    msgs.push(newMsg);
     
-    this.modalAutoReplyAddMsgClose();
-    updateAutoReply(autoReplyCopy)
+    let newData = {
+      id: this.state.autoReplyId,
+      key_words: this.state.autoReplyKeywords,
+      response_msgs: msgs
+    };
+    
+    updateAutoReply(newData)
     .then(() => {
       this.setState({
-        autoReply: autoReplyCopy
+        autoReplyMessages: msgs
       }, () => {
-        console.log("NEW STATE: "+JSON.stringify(this.state.autoReply));
+        this.modalAutoReplyAddMsgClose();
       });
     });
   }
 
   modalAutoReplyAddKeywordOpen = () => {
-    this.setState({ modalAutoReplyAddKeywordShow: true });
+    this.setState({ 
+      modalAutoReplyAddKeywordShow: true 
+    }, () => {
+      getAutoReply().then(data => {
+        const msgGroup = data.find(group => group._id === this.state.autoReplyId);
+        this.setState({
+          autoReplyKeywords: [...msgGroup.key_words],
+          autoReplyMessages: [...msgGroup.response_msgs]
+        });
+      });
+    });
   }
 
   modalAutoReplyAddKeywordClose = () => {
@@ -89,22 +118,27 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyAddKeywordSubmit = () => {
-    let autoReplyCopy = this.state.autoReply;
+    let keywords = [...this.state.autoReplyKeywords];
 
     const newKeyword = {
       id: uuidv4(),
       text: this.state.inputKeyword
     }
 
-    autoReplyCopy.key_words.push(newKeyword);
+    keywords.push(newKeyword);
 
-    this.modalAutoReplyAddKeywordClose();
-    updateAutoReply(autoReplyCopy)
+    let newData = {
+      id: this.state.autoReplyId,
+      key_words: keywords,
+      response_msgs: this.state.autoReplyMessages
+    };
+
+    updateAutoReply(newData)
     .then(() => {
       this.setState({
-        autoReply: autoReplyCopy
+        autoReplyKeywords: keywords
       }, () => {
-        console.log("NEW STATE: "+JSON.stringify(this.state.autoReply));
+        this.modalAutoReplyAddKeywordClose();
       });
     });
   }
@@ -123,7 +157,17 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyRemoveMsgOpen = () => {
-    this.setState({ modalAutoReplyRemoveMsgShow: true });
+    this.setState({ 
+      modalAutoReplyRemoveMsgShow: true
+    }, () => {
+      getAutoReply().then(data => {
+        const msgGroup = data.find(group => group._id === this.state.autoReplyId);
+        this.setState({
+          autoReplyKeywords: [...msgGroup.key_words],
+          autoReplyMessages: [...msgGroup.response_msgs]
+        });
+      });
+    });
   }
 
   modalAutoReplyRemoveMsgClose = () => {
@@ -131,19 +175,65 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyRemoveMsgSubmit = () => {
-    let autoReplyCopy = this.state.autoReply;
-    autoReplyCopy.response_msgs.splice(this.state.msgIdx, 1);
-    this.modalAutoReplyRemoveMsgClose();
-    updateAutoReply(autoReplyCopy)
+    let msgs = [...this.state.autoReplyMessages];
+    const updateIdx = msgs.findIndex(item => item.id === this.state.autoReplyMessage.id);
+    msgs.splice(updateIdx, 1);
+
+    let newData = {
+      id: this.state.autoReplyId,
+      key_words: this.state.autoReplyKeywords,
+      response_msgs: msgs
+    };
+
+    updateAutoReply(newData)
     .then(() => {
       this.setState({
-        autoReply: autoReplyCopy
+        autoReplyMessages: msgs
       }, () => {
-        console.log("NEW STATE: "+JSON.stringify(this.state.autoReply));
+        this.modalAutoReplyRemoveMsgClose();
       });
     });
   }
 
+  modalAutoReplyRemoveKeywordOpen = () => {
+    this.setState({ 
+      modalAutoReplyRemoveKeywordShow: true
+    }, () => {
+      getAutoReply().then(data => {
+        const msgGroup = data.find(group => group._id === this.state.autoReplyId);
+        this.setState({
+          autoReplyKeywords: [...msgGroup.key_words],
+          autoReplyMessages: [...msgGroup.response_msgs]
+        });
+      });
+    });
+  }
+
+  modalAutoReplyRemoveKeywordClose = () => {
+    this.setState({ modalAutoReplyRemoveKeywordShow: false }, this.props.callback );
+  }
+
+  modalAutoReplyRemoveKeywordSubmit = () => {
+    let keywords = [...this.state.autoReplyKeywords];
+    const updateIdx = keywords.findIndex(item => item.id === this.state.autoReplyKeyword.id);
+    keywords.splice(updateIdx, 1);
+
+    let newData = {
+      id: this.state.autoReplyId,
+      key_words: keywords,
+      response_msgs: this.state.autoReplyMessages
+    };
+
+    updateAutoReply(newData)
+    .then(() => {
+      this.setState({
+        autoReplyKeywords: keywords
+      }, () => {
+        this.modalAutoReplyRemoveMsgClose();
+      });
+    });
+  }
+/*
   modalAutoReplyUpdateOpen = () => {
     this.setState({ modalAutoReplyUpdateShow: true });
   }
@@ -183,15 +273,13 @@ export default class AutoReplyModal extends Component {
       });
     });
   }
-
+*/
   radioChange = (e, { value }) => {
     this.setState({ inputMsgType: value })
   }
 
   render() {
     const modalType = this.state.type;
-    const autoReplyMsgs = this.state.autoReply.response_msgs;
-    const autoReplyMsgIdx = this.state.msgIdx;
     const radioChange = this.radioChange;
 
     if(modalType === 'ADD_GROUP') {
@@ -290,50 +378,6 @@ export default class AutoReplyModal extends Component {
         </Modal>
       )
 
-    } else if(modalType === 'UPDATE') {
-      return(
-        <Modal open={this.state.modalAutoReplyUpdateShow} trigger={
-          <Button floated='right' icon labelPosition='left' color='vk' size='small' onClick={this.modalAutoReplyUpdateOpen}>
-            <Icon name='pencil alternate' /> 編輯
-          </Button>
-          }>
-          <Modal.Header>編輯訊息</Modal.Header>
-          <Modal.Content>
-            <Modal.Description>
-              <Form>
-                <Form.Group inline>
-                  <label>訊息類型</label>
-                  <Form.Radio
-                    label='文字'
-                    value='text'
-                    checked={autoReplyMsgs[autoReplyMsgIdx].isText === true}
-                    disabled={autoReplyMsgs[autoReplyMsgIdx].isText === false}
-                  />
-                  <Form.Radio
-                    label='貼圖'
-                    value='sticker'
-                    checked={autoReplyMsgs[autoReplyMsgIdx].isText === false}
-                    disabled={autoReplyMsgs[autoReplyMsgIdx].isText === true}
-                  />
-                </Form.Group>
-                <Form.TextArea label='文字訊息' placeholder={autoReplyMsgs[autoReplyMsgIdx].text} disabled={autoReplyMsgs[autoReplyMsgIdx].isText === false} onChange={e => {this.setState({inputMsgContent: e.target.value});}}/>
-                <Form.Group widths='equal'>
-                  <Form.Input fluid label='貼圖包序號' placeholder={autoReplyMsgs[autoReplyMsgIdx].pkgId} disabled={autoReplyMsgs[autoReplyMsgIdx].isText === true} onChange={e => {this.setState({inputPkgId: e.target.value});}}/>
-                  <Form.Input fluid label='貼圖序號' placeholder={autoReplyMsgs[autoReplyMsgIdx].stkrId} disabled={autoReplyMsgs[autoReplyMsgIdx].isText === true} onChange={e => {this.setState({inputStkrId: e.target.value});}}/>
-                </Form.Group>
-              </Form>
-            </Modal.Description>
-            <Modal.Actions style={{ padding: '3em' }}>
-              <Button floated='right' color='green' onClick={this.modalAutoReplyUpdateSubmit}>
-                <Icon name='checkmark' /> 確定
-              </Button>
-              <Button floated='right' color='grey' onClick={this.modalAutoReplyUpdateClose}>
-                <Icon name='remove' /> 取消
-              </Button>
-            </Modal.Actions>
-          </Modal.Content>
-        </Modal>
-      )
     } else if(modalType === 'REMOVE_GROUP') {
       return(
         <Modal open={this.state.modalAutoReplyRemoveGroupShow} trigger={
@@ -358,7 +402,31 @@ export default class AutoReplyModal extends Component {
         </Modal>
       )
 
-    } else if(modalType === 'REMOVE_MSG') {
+    } else if(modalType === 'REMOVE_KEY_MSG') {
+      return(
+        <Modal open={this.state.modalAutoReplyRemoveKeywordShow} trigger={
+          <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalAutoReplyRemoveKeywordOpen}>
+            <Icon name='trash alternate' /> 移除
+          </Button>
+          }>
+          <Modal.Header>移除訊息</Modal.Header>
+          <Modal.Content>
+            <Modal.Description>
+              <p>確定要刪除這則訊息?</p>
+            </Modal.Description>
+            <Modal.Actions style={{ padding: '3em' }}>
+              <Button floated='right' color='google plus' onClick={this.modalAutoReplyRemoveKeywordSubmit}>
+                <Icon name='checkmark' /> 移除
+              </Button>
+              <Button floated='right' color='grey' onClick={this.modalAutoReplyRemoveKeywordClose}>
+                <Icon name='remove' /> 取消
+              </Button>
+            </Modal.Actions>
+          </Modal.Content>
+        </Modal>
+      )
+    
+    } else if(modalType === 'REMOVE_RPY_MSG') {
       return(
         <Modal open={this.state.modalAutoReplyRemoveMsgShow} trigger={
           <Button floated='right' icon labelPosition='left' color='google plus' size='small' onClick={this.modalAutoReplyRemoveMsgOpen}>

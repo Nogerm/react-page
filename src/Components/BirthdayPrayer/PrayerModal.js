@@ -10,7 +10,6 @@ export default class PrayerModal extends Component {
     prayerId: this.props.prayerId || '',
     prayerMsgs: [],
     prayerMsg: this.props.prayerMsg || '',
-    msgId: this.props.msgId || '',
     modalPrayerAddGroupShow: false,
     modalPrayerAddMsgShow: false,
     modalPrayerRemoveGroupShow: false,

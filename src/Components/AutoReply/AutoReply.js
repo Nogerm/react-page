@@ -48,7 +48,7 @@ export default class AutoReply extends Component {
                 <Table.Row>
                   <Table.HeaderCell colSpan='5'>
                     訊息群組#{index+1}
-                    <AutoReplyModal type='REMOVE_GROUP' autoReply={autoReply} callback={delayQuery}/>
+                    <AutoReplyModal type='REMOVE_GROUP' autoReplyId={autoReply._id} callback={delayQuery}/>
 									</Table.HeaderCell>
                 </Table.Row>
                 <Table.Row>
@@ -63,7 +63,7 @@ export default class AutoReply extends Component {
                     <Table.Row key={keyword.id} >
 											<Table.Cell colSpan='4'>{keyword.text}</Table.Cell>
                       <Table.Cell>
-                        <AutoReplyModal type='REMOVE_MSG' autoReply={autoReply} msgIdx={idx} callback={delayQuery}/>
+                        <AutoReplyModal type='REMOVE_KEY_MSG' autoReplyId={autoReply._id} autoReplyKeyword={keyword} callback={delayQuery}/>
                       </Table.Cell>
                     </Table.Row>
                   )
@@ -89,7 +89,7 @@ export default class AutoReply extends Component {
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.stkrId}</Table.Cell>}
 											<Table.Cell>
-                        <AutoReplyModal type='REMOVE_MSG' autoReply={autoReply} msgIdx={idx} callback={delayQuery}/>
+                        <AutoReplyModal type='REMOVE_RPY_MSG' autoReplyId={autoReply._id} autoReplyMessage={msg} callback={delayQuery}/>
 											</Table.Cell>
 										</Table.Row>
 									)
@@ -99,8 +99,8 @@ export default class AutoReply extends Component {
 							<Table.Footer fullWidth>
 								<Table.Row>
 									<Table.HeaderCell colSpan='5'>
-                    <AutoReplyModal type='ADD_MSG' autoReply={autoReply} callback={delayQuery}/>
-                    <AutoReplyModal type='ADD_KEY' autoReply={autoReply} callback={delayQuery}/>
+                    <AutoReplyModal type='ADD_MSG' autoReplyId={autoReply._id} callback={delayQuery}/>
+                    <AutoReplyModal type='ADD_KEY' autoReplyId={autoReply._id} callback={delayQuery}/>
 									</Table.HeaderCell>
 								</Table.Row>
 							</Table.Footer>
