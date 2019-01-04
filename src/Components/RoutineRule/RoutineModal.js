@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Icon, Modal, Form, Input } from 'semantic-ui-react'
-import { addRoutineRule, updateRoutineRule, removeRoutineRule } from '../MongoDB';
+import { getRoutineRule, addRoutineRule, updateRoutineRule, removeRoutineRule } from '../MongoDB';
 const uuidv4 = require('uuid/v4');
 
 export default class RoutineModal extends Component {
@@ -70,7 +70,16 @@ export default class RoutineModal extends Component {
   }
 
   modalRuleUpdateOpen = () => {
-    this.setState({ modalRuleUpdateShow: true });
+    this.setState({ 
+      modalRuleUpdateShow: true
+    }, () => {
+      getRoutineRule().then(data => {
+        const ruleGroup = data.find(rule => rule._id === this.state.rule._id);
+        this.setState({
+          rule: [...ruleGroup]
+        });
+      });
+    });
   }
 
   modalRuleUpdateClose = () => {
@@ -80,7 +89,7 @@ export default class RoutineModal extends Component {
   modalRuleUpdateSubmit = () => {
     const newData = {
       id: this.state.rule._id,
-      month: 'all',
+      month: this.state.rule.month,
       routines: [{
         week_day: 1,
         name: (this.state.inputWeekday1.toString() === '') ? this.state.rule.routines[0].name : this.state.inputWeekday1.toString()
