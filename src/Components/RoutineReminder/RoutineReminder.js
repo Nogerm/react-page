@@ -71,8 +71,8 @@ export default class RoutineReminder extends Component {
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.stkrId}</Table.Cell>}
 											<Table.Cell>
-                        <ReminderModal type='REMOVE_MSG' reminderId={reminder._id} reminderMsgs={reminder.msgs} msgIdx={idx} callback={delayQuery}/>
-                        <ReminderModal type='UPDATE' reminderId={reminder._id} reminderMsgs={reminder.msgs} msgIdx={idx} callback={delayQuery}/>
+                        <ReminderModal type='REMOVE_MSG' reminderId={reminder._id} reminderMsg={msg} callback={delayQuery}/>
+                        <ReminderModal type='UPDATE' reminderId={reminder._id} reminderMsg={msg} callback={delayQuery}/>
 											</Table.Cell>
 										</Table.Row>
 									)

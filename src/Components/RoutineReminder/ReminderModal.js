@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Icon, Modal, Form } from 'semantic-ui-react'
-import { addRoutineReminder, updateRoutineReminder, removeRoutineReminder } from '../MongoDB';
+import { getRoutineReminder, addRoutineReminder, updateRoutineReminder, removeRoutineReminder } from '../MongoDB';
 const uuidv4 = require('uuid/v4');
 
 export default class ReminderModal extends Component {
@@ -8,8 +8,9 @@ export default class ReminderModal extends Component {
   state = {
     type: this.props.type,
     reminderId: this.props.reminderId || '',
-    reminderMsgs: this.props.reminderMsgs || [],
-    msgIdx: this.props.msgIdx || 0,
+    reminderMsgs: [],
+    reminderMsg: this.props.reminderMsg || [],
+    msgId: this.props.msgId || '',
     modalReminderAddGroupShow: false,
     modalReminderAddMsgShow: false,
     modalReminderRemoveGroupShow: false,
@@ -39,7 +40,16 @@ export default class ReminderModal extends Component {
   }
 
   modalReminderAddMsgOpen = () => {
-    this.setState({ modalReminderAddMsgShow: true });
+    this.setState({ 
+      modalReminderAddMsgShow: true
+    }, () => {
+      getRoutineReminder().then(data => {
+        const msgGroup = data.find(group => group._id === this.state.reminderId);
+        this.setState({
+          reminderMsgs: [...msgGroup.msgs]
+        });
+      });
+    });
   }
 
   modalReminderAddMsgClose = () => {
@@ -67,13 +77,13 @@ export default class ReminderModal extends Component {
     }
 
     msgs.push(newData);
-    this.modalReminderAddMsgClose();
     updateRoutineReminder(this.state.reminderId, msgs)
     .then(() => {
       this.setState({
         reminderMsgs: msgs
       }, () => {
         console.log("NEW STATE: "+JSON.stringify(this.state.reminderMsgs));
+        this.modalReminderAddMsgClose();
       });
     });
   }
@@ -92,7 +102,17 @@ export default class ReminderModal extends Component {
   }
 
   modalReminderRemoveMsgOpen = () => {
-    this.setState({ modalReminderRemoveMsgShow: true });
+    this.setState({ 
+      modalReminderRemoveMsgShow: true
+    }, () => {
+      getRoutineReminder().then(data => {
+        console.log("[PrayerModal queryData]" + JSON.stringify(data));
+        const msgGroup = data.find(group => group._id === this.state.reminderId);
+        this.setState({
+          reminderMsgs: [...msgGroup.msgs],
+        });
+      });
+    });
   }
 
   modalReminderRemoveMsgClose = () => {
@@ -101,20 +121,31 @@ export default class ReminderModal extends Component {
 
   modalReminderRemoveMsgSubmit = () => {
     let msgs = [...this.state.reminderMsgs];
-    msgs.splice(this.state.msgIdx, 1);
-    this.modalReminderRemoveMsgClose();
+    const updateIdx = msgs.findIndex(item => item.id === this.state.reminderMsg.id);
+    msgs.splice(updateIdx, 1);
     updateRoutineReminder(this.state.reminderId, msgs)
     .then(() => {
       this.setState({
         reminderMsgs: msgs
       }, () => {
         console.log("NEW STATE: "+JSON.stringify(this.state.reminderMsgs));
+        this.modalReminderRemoveMsgClose();
       });
     });
   }
 
   modalReminderUpdateOpen = () => {
-    this.setState({ modalReminderUpdateShow: true });
+    this.setState({ 
+      modalReminderUpdateShow: true
+    }, () => {
+      getRoutineReminder().then(data => {
+        console.log("[PrayerModal queryData]" + JSON.stringify(data));
+        const msgGroup = data.find(group => group._id === this.state.reminderId);
+        this.setState({
+          reminderMsgs: [...msgGroup.msgs],
+        });
+      });
+    });
   }
 
   modalReminderUpdateClose = () => {
@@ -141,14 +172,15 @@ export default class ReminderModal extends Component {
       }
     }
 
-    msgs.splice(this.state.msgIdx, 1, newData);
-    this.modalReminderUpdateClose();
+    const updateIdx = msgs.findIndex(item => item.id === this.state.reminderMsg.id);
+    msgs.splice(updateIdx, 1, newData);
     updateRoutineReminder(this.state.reminderId, msgs)
     .then(() => {
       this.setState({
         reminderMsgs: msgs
       }, () => {
         console.log("NEW STATE: "+JSON.stringify(this.state.reminderMsgs));
+        this.modalReminderUpdateClose();
       });
     });
   }
@@ -159,8 +191,7 @@ export default class ReminderModal extends Component {
 
   render() {
     const modalType = this.state.type;
-    const reminderMsgs = this.state.reminderMsgs;
-    const reminderMsgIdx = this.state.msgIdx;
+    const reminderMsg = this.state.reminderMsg;
     const radioChange = this.radioChange;
 
     if(modalType === 'ADD_GROUP') {
@@ -248,20 +279,20 @@ export default class ReminderModal extends Component {
                   <Form.Radio
                     label='文字'
                     value='text'
-                    checked={reminderMsgs[reminderMsgIdx].isText === true}
-                    disabled={reminderMsgs[reminderMsgIdx].isText === false}
+                    checked={reminderMsg.isText === true}
+                    disabled={reminderMsg.isText === false}
                   />
                   <Form.Radio
                     label='貼圖'
                     value='sticker'
-                    checked={reminderMsgs[reminderMsgIdx].isText === false}
-                    disabled={reminderMsgs[reminderMsgIdx].isText === true}
+                    checked={reminderMsg.isText === false}
+                    disabled={reminderMsg.isText === true}
                   />
                 </Form.Group>
-                <Form.TextArea label='文字訊息' placeholder={reminderMsgs[reminderMsgIdx].text} disabled={reminderMsgs[reminderMsgIdx].isText === false} onChange={e => {this.setState({inputMsgType: 'text', inputMsgContent: e.target.value});}}/>
+                <Form.TextArea label='文字訊息' placeholder={reminderMsg.text} disabled={reminderMsg.isText === false} onChange={e => {this.setState({inputMsgType: 'text', inputMsgContent: e.target.value});}}/>
                 <Form.Group widths='equal'>
-                  <Form.Input fluid label='貼圖包序號' placeholder={reminderMsgs[reminderMsgIdx].pkgId} disabled={reminderMsgs[reminderMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
-                  <Form.Input fluid label='貼圖序號' placeholder={reminderMsgs[reminderMsgIdx].stkrId} disabled={reminderMsgs[reminderMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖包序號' placeholder={reminderMsg.pkgId} disabled={reminderMsg.isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖序號' placeholder={reminderMsg.stkrId} disabled={reminderMsg.isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
                 </Form.Group>
               </Form>
             </Modal.Description>
