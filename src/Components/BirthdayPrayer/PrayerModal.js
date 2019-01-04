@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Icon, Modal, Form } from 'semantic-ui-react'
-import { addBirthdayPrayer, updateBirthdayPrayer, removeBirthdayPrayer } from '../MongoDB';
+import { getBirthdayPrayer, addBirthdayPrayer, updateBirthdayPrayer, removeBirthdayPrayer } from '../MongoDB';
 const uuidv4 = require('uuid/v4');
 
 export default class PrayerModal extends Component {
@@ -8,8 +8,9 @@ export default class PrayerModal extends Component {
   state = {
     type: this.props.type,
     prayerId: this.props.prayerId || '',
-    prayerMsgs: this.props.prayerMsgs || [],
-    msgIdx: this.props.msgIdx || 0,
+    prayerMsgs: [],
+    prayerMsg: this.props.prayerMsg || '',
+    msgId: this.props.msgId || '',
     modalPrayerAddGroupShow: false,
     modalPrayerAddMsgShow: false,
     modalPrayerRemoveGroupShow: false,
@@ -39,7 +40,16 @@ export default class PrayerModal extends Component {
   }
 
   modalPrayerAddMsgOpen = () => {
-    this.setState({ modalPrayerAddMsgShow: true });
+    this.setState({
+      modalPrayerAddMsgShow: true,
+    }, () => {
+      getBirthdayPrayer().then(data => {
+        const msgGroup = data.find(group => group._id === this.state.prayerId);
+        this.setState({
+          prayerMsgs: [...msgGroup.msgs]
+        });
+      });
+    });
   }
 
   modalPrayerAddMsgClose = () => {
@@ -67,13 +77,13 @@ export default class PrayerModal extends Component {
     }
 
     msgs.push(newData);
-    this.modalPrayerAddMsgClose();
     updateBirthdayPrayer(this.state.prayerId, msgs)
     .then(() => {
       this.setState({
         prayerMsgs: msgs
       }, () => {
         console.log("NEW STATE: "+JSON.stringify(this.state.prayerMsgs));
+        this.modalPrayerAddMsgClose();
       });
     });
   }
@@ -92,7 +102,17 @@ export default class PrayerModal extends Component {
   }
 
   modalPrayerRemoveMsgOpen = () => {
-    this.setState({ modalPrayerRemoveMsgShow: true });
+    this.setState({
+      modalPrayerRemoveMsgShow: true
+    }, () => {
+      getBirthdayPrayer().then(data => {
+        console.log("[PrayerModal queryData]" + JSON.stringify(data));
+        const msgGroup = data.find(group => group._id === this.state.prayerId);
+        this.setState({
+          prayerMsgs: [...msgGroup.msgs],
+        });
+      });
+    });
   }
 
   modalPrayerRemoveMsgClose = () => {
@@ -101,20 +121,31 @@ export default class PrayerModal extends Component {
 
   modalPrayerRemoveMsgSubmit = () => {
     let msgs = [...this.state.prayerMsgs];
-    msgs.splice(this.state.msgIdx, 1);
-    this.modalPrayerRemoveMsgClose();
+    const updateIdx = msgs.findIndex(item => item.id === this.state.prayerMsg.id);
+    msgs.splice(updateIdx, 1);
     updateBirthdayPrayer(this.state.prayerId, msgs)
     .then(() => {
       this.setState({
         prayerMsgs: msgs
       }, () => {
         console.log("NEW STATE: "+JSON.stringify(this.state.prayerMsgs));
+        this.modalPrayerRemoveMsgClose();
       });
     });
   }
 
   modalPrayerUpdateOpen = () => {
-    this.setState({ modalPrayerUpdateShow: true });
+    this.setState({
+      modalPrayerUpdateShow: true
+    }, () => {
+      getBirthdayPrayer().then(data => {
+        console.log("[PrayerModal queryData]" + JSON.stringify(data));
+        const msgGroup = data.find(group => group._id === this.state.prayerId);
+        this.setState({
+          prayerMsgs: [...msgGroup.msgs],
+        });
+      });
+    });
   }
 
   modalPrayerUpdateClose = () => {
@@ -141,14 +172,15 @@ export default class PrayerModal extends Component {
       }
     }
 
-    msgs.splice(this.state.msgIdx, 1, newData);
-    this.modalPrayerUpdateClose();
+    const updateIdx = msgs.findIndex(item => item.id === this.state.prayerMsg.id);
+    msgs.splice(updateIdx, 1, newData);
     updateBirthdayPrayer(this.state.prayerId, msgs)
     .then(() => {
       this.setState({
         prayerMsgs: msgs
       }, () => {
         console.log("NEW STATE: "+JSON.stringify(this.state.prayerMsgs));
+        this.modalPrayerUpdateClose();
       });
     });
   }
@@ -159,8 +191,7 @@ export default class PrayerModal extends Component {
 
   render() {
     const modalType = this.state.type;
-    const prayerMsgs = this.state.prayerMsgs;
-    const prayerMsgIdx = this.state.msgIdx;
+    const prayerMsg = this.state.prayerMsg;
     const radioChange = this.radioChange;
 
     if(modalType === 'ADD_GROUP') {
@@ -248,20 +279,20 @@ export default class PrayerModal extends Component {
                   <Form.Radio
                     label='文字'
                     value='text'
-                    checked={prayerMsgs[prayerMsgIdx].isText === true}
-                    disabled={prayerMsgs[prayerMsgIdx].isText === false}
+                    checked={prayerMsg.isText === true}
+                    disabled={prayerMsg.isText === false}
                   />
                   <Form.Radio
                     label='貼圖'
                     value='sticker'
-                    checked={prayerMsgs[prayerMsgIdx].isText === false}
-                    disabled={prayerMsgs[prayerMsgIdx].isText === true}
+                    checked={prayerMsg.isText === false}
+                    disabled={prayerMsg.isText === true}
                   />
                 </Form.Group>
-                <Form.TextArea label='文字訊息' placeholder={prayerMsgs[prayerMsgIdx].text} disabled={prayerMsgs[prayerMsgIdx].isText === false} onChange={e => {this.setState({inputMsgType: 'text', inputMsgContent: e.target.value});}}/>
+                <Form.TextArea label='文字訊息' placeholder={prayerMsg.text} disabled={prayerMsg.isText === false} onChange={e => {this.setState({inputMsgType: 'text', inputMsgContent: e.target.value});}}/>
                 <Form.Group widths='equal'>
-                  <Form.Input fluid label='貼圖包序號' placeholder={prayerMsgs[prayerMsgIdx].pkgId} disabled={prayerMsgs[prayerMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
-                  <Form.Input fluid label='貼圖序號' placeholder={prayerMsgs[prayerMsgIdx].stkrId} disabled={prayerMsgs[prayerMsgIdx].isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖包序號' placeholder={prayerMsg.pkgId} disabled={prayerMsg.isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
+                  <Form.Input fluid label='貼圖序號' placeholder={prayerMsg.stkrId} disabled={prayerMsg.isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
                 </Form.Group>
               </Form>
             </Modal.Description>

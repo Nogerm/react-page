@@ -71,8 +71,8 @@ export default class BirthdayPrayer extends Component {
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.stkrId}</Table.Cell>}
 											<Table.Cell>
-                        <PrayerModal type='REMOVE_MSG' prayerId={prayer._id} prayerMsgs={prayer.msgs} msgIdx={idx} callback={delayQuery}/>
-                        <PrayerModal type='UPDATE' prayerId={prayer._id} prayerMsgs={prayer.msgs} msgIdx={idx} callback={delayQuery}/>
+                        <PrayerModal type='REMOVE_MSG' prayerId={prayer._id} prayerMsg={msg} callback={delayQuery}/>
+                        <PrayerModal type='UPDATE' prayerId={prayer._id} prayerMsg={msg} callback={delayQuery}/>
 											</Table.Cell>
 										</Table.Row>
 									)
