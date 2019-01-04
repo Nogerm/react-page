@@ -80,28 +80,29 @@ export default class RoutineModal extends Component {
   modalRuleUpdateSubmit = () => {
     const newData = {
       id: this.state.rule._id,
-      month: this.state.inputRuleType,
+      month: 'all',
       routines: [{
         week_day: 1,
-        name: this.state.inputWeekday1.toString()
+        name: (this.state.inputWeekday1.toString() === '') ? this.state.rule.routines[0].name : this.state.inputWeekday1.toString()
       },{
         week_day: 2,
-        name: this.state.inputWeekday2.toString()
+        name: (this.state.inputWeekday2.toString() === '') ? this.state.rule.routines[1].name : this.state.inputWeekday2.toString()
       },{
         week_day: 3,
-        name: this.state.inputWeekday3.toString()
+        name: (this.state.inputWeekday3.toString() === '') ? this.state.rule.routines[2].name : this.state.inputWeekday3.toString()
       },{
         week_day: 4,
-        name: this.state.inputWeekday4.toString()
+        name: (this.state.inputWeekday4.toString() === '') ? this.state.rule.routines[3].name : this.state.inputWeekday4.toString()
       },{
         week_day: 5,
-        name: this.state.inputWeekday5.toString()
+        name: (this.state.inputWeekday5.toString() === '') ? this.state.rule.routines[4].name : this.state.inputWeekday5.toString()
       },{
         week_day: 6,
-        name: this.state.inputWeekday6.toString()
+        name: (this.state.inputWeekday6.toString() === '') ? this.state.rule.routines[5].name : this.state.inputWeekday6.toString()
       }]
     }
-    updateRoutineRule(newData);
+    
+    updateRoutineRule(newData)
     this.modalRuleUpdateClose();
   }
 
