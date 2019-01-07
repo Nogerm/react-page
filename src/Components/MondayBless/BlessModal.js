@@ -227,6 +227,7 @@ export default class BlessModal extends Component {
           <Modal.Header>新增訊息</Modal.Header>
           <Modal.Content>
             <Modal.Description>
+              <a href="https://devdocs.line.me/files/sticker_list.pdf" target="_blank" rel="noopener noreferrer">可以使用的貼圖清單</a>
               <Form>
                 <Form.Group inline>
                   <label>訊息類型</label>
@@ -245,8 +246,8 @@ export default class BlessModal extends Component {
                 </Form.Group>
                 <Form.TextArea label='文字訊息' placeholder='訊息內容' disabled={this.state.inputMsgType === '' ||　this.state.inputMsgType === 'sticker'} onChange={e => {this.setState({inputMsgContent: e.target.value});}}/>
                 <Form.Group widths='equal'>
-                  <Form.Input fluid label='貼圖包序號' placeholder='貼圖包序號' disabled={this.state.inputMsgType === '' ||　this.state.inputMsgType === 'text'} onChange={e => {this.setState({inputPkgId: e.target.value});}}/>
-                  <Form.Input fluid label='貼圖序號' placeholder='貼圖序號' disabled={this.state.inputMsgType === '' ||　this.state.inputMsgType === 'text'} onChange={e => {this.setState({inputStkrId: e.target.value});}}/>
+                  <Form.Input fluid label='STKID' placeholder='STKID' disabled={this.state.inputMsgType === '' ||　this.state.inputMsgType === 'text'} onChange={e => {this.setState({inputStkrId: e.target.value});}}/>
+                  <Form.Input fluid label='STKPKGID' placeholder='STKPKGID' disabled={this.state.inputMsgType === '' ||　this.state.inputMsgType === 'text'} onChange={e => {this.setState({inputPkgId: e.target.value});}}/>
                 </Form.Group>
               </Form>              
             </Modal.Description>
@@ -272,6 +273,7 @@ export default class BlessModal extends Component {
           <Modal.Header>編輯訊息</Modal.Header>
           <Modal.Content>
             <Modal.Description>
+              <a href="https://devdocs.line.me/files/sticker_list.pdf" target="_blank" rel="noopener noreferrer">可以使用的貼圖清單</a>
               <Form>
                 <Form.Group inline>
                   <label>訊息類型</label>
@@ -290,8 +292,8 @@ export default class BlessModal extends Component {
                 </Form.Group>
                 <Form.TextArea label='文字訊息' placeholder={blessMsg.text} disabled={blessMsg.isText === false} onChange={e => {this.setState({inputMsgType: 'text', inputMsgContent: e.target.value});}}/>
                 <Form.Group widths='equal'>
-                  <Form.Input fluid label='貼圖包序號' placeholder={blessMsg.pkgId} disabled={blessMsg.isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
-                  <Form.Input fluid label='貼圖序號' placeholder={blessMsg.stkrId} disabled={blessMsg.isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
+                  <Form.Input fluid label='STKID' placeholder={blessMsg.stkrId} disabled={blessMsg.isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputStkrId: e.target.value});}}/>
+                  <Form.Input fluid label='STKPKGID' placeholder={blessMsg.pkgId} disabled={blessMsg.isText === true} onChange={e => {this.setState({inputMsgType: 'sticker', inputPkgId: e.target.value});}}/>
                 </Form.Group>
               </Form>
             </Modal.Description>

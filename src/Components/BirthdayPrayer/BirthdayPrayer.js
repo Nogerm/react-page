@@ -55,8 +55,8 @@ export default class BirthdayPrayer extends Component {
                   <Table.HeaderCell>順序</Table.HeaderCell>
 									<Table.HeaderCell>類別</Table.HeaderCell>
 									<Table.HeaderCell style={{ width: '250px' }}>文字訊息</Table.HeaderCell>
-									<Table.HeaderCell>貼圖包序號</Table.HeaderCell>
-									<Table.HeaderCell>貼圖序號</Table.HeaderCell>
+									<Table.HeaderCell>STKID</Table.HeaderCell>
+									<Table.HeaderCell>STKPKGID</Table.HeaderCell>
 									<Table.HeaderCell style={{ width: '250px' }}>操作</Table.HeaderCell>
 								</Table.Row>
 							</Table.Header>
@@ -68,8 +68,8 @@ export default class BirthdayPrayer extends Component {
                       <Table.Cell>{idx+1}</Table.Cell>
 											<Table.Cell>{msg.isText ? "文字" : "貼圖"}</Table.Cell>
 											{msg.isText ? <Table.Cell>{msg.text}</Table.Cell> : <Table.Cell/>}
-											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.stkrId}</Table.Cell>}
+											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
 											<Table.Cell>
                         <PrayerModal type='REMOVE_MSG' prayerId={prayer._id} prayerMsg={msg} callback={delayQuery}/>
                         <PrayerModal type='UPDATE' prayerId={prayer._id} prayerMsg={msg} callback={delayQuery}/>

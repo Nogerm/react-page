@@ -74,8 +74,8 @@ export default class AutoReply extends Component {
 								<Table.Row>
 									<Table.HeaderCell>類別</Table.HeaderCell>
 									<Table.HeaderCell style={{ width: '250px' }}>回應訊息</Table.HeaderCell>
-									<Table.HeaderCell>貼圖包序號</Table.HeaderCell>
-									<Table.HeaderCell>貼圖序號</Table.HeaderCell>
+									<Table.HeaderCell>STKID</Table.HeaderCell>
+									<Table.HeaderCell>STKPKGID</Table.HeaderCell>
 									<Table.HeaderCell style={{ width: '250px' }}>操作</Table.HeaderCell>
 								</Table.Row>
 							</Table.Header>
@@ -85,9 +85,9 @@ export default class AutoReply extends Component {
 									return (
 										<Table.Row key={msg.id} >
 											<Table.Cell>{msg.isText ? "文字" : "貼圖"}</Table.Cell>
-											{msg.isText ? <Table.Cell>{msg.text}</Table.Cell> : <Table.Cell/>}
-											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
+                      {msg.isText ? <Table.Cell>{msg.text}</Table.Cell> : <Table.Cell/>}
 											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.stkrId}</Table.Cell>}
+											{msg.isText ? <Table.Cell/> : <Table.Cell>{msg.pkgId}</Table.Cell>}
 											<Table.Cell>
                         <AutoReplyModal type='REMOVE_RPY_MSG' autoReplyId={autoReply._id} autoReplyMessage={msg} callback={delayQuery}/>
 											</Table.Cell>
