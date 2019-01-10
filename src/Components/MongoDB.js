@@ -31,6 +31,7 @@ export const getBirthdayPerson = function() {
 	return new Promise((resolve, reject) => {
 		axios.get(BIRTHDAY_PERSON_URL, {
 				params: {
+					s: JSON.stringify({"birth_month": 1, "birth_day": 1}),
 					apiKey: API_KEY
 				}
 			})
