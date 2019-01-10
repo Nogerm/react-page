@@ -28,8 +28,8 @@ export default class UserModal extends Component {
     const newData = {
       id: uuidv4(),
       name: this.state.inputName,
-      birth_month: this.state.inputBirthMonth,
-      birth_day: this.state.inputBirthDay
+      birth_month: parseInt(this.state.inputBirthMonth),
+      birth_day: parseInt(this.state.inputBirthDay)
     }
     addBirthdayPerson(newData);
     this.modalUserAddClose();
@@ -60,8 +60,8 @@ export default class UserModal extends Component {
     const newData = {
       id: this.state.person._id,
       name: (this.state.inputName === '') ? this.state.person.name : this.state.inputName,
-      birth_month: (this.state.inputBirthMonth === '') ? this.state.person.birth_month : this.state.inputBirthMonth,
-      birth_day: (this.state.inputBirthDay === '') ? this.state.person.birth_day : this.state.inputBirthDay
+      birth_month: (this.state.inputBirthMonth === '') ? parseInt(this.state.person.birth_month) : parseInt(this.state.inputBirthMonth),
+      birth_day: (this.state.inputBirthDay === '') ? parseInt(this.state.person.birth_day) : parseInt(this.state.inputBirthDay)
     }
     updateBirthdayPerson(newData);
     this.modalUserUpdateClose();
