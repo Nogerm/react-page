@@ -386,7 +386,7 @@ export const getAutoReply = function() {
 				}
 			})
 			.then(function (response) {
-				console.log("[getAutoReply]" + response);
+				console.log("[getAutoReply]" + JSON.stringify(response));
 				resolve(response.data);
 			})
 			.catch(function (error) {
@@ -416,13 +416,14 @@ export const addAutoReply = function(newData) {
 
 export const updateAutoReply = function(newData) {
 	return new Promise((resolve, reject) => {
+		console.log("[updateAutoReply] new Data" + JSON.stringify(newData));
   	axios.put(AUTO_RESPONSE_URL + '/' + newData.id + '?apiKey=' + API_KEY, {
       _id: newData.id,
       key_words: [...newData.key_words],
 			response_msgs: [...newData.response_msgs]
     })
     .then(function (response) {
-      console.log("[updateAutoReply]" + response);
+      console.log("[updateAutoReply]" + JSON.stringify(response));
       resolve(response.data);
     })
     .catch(function (error) {
