@@ -152,7 +152,7 @@ export default class AutoReplyModal extends Component {
   }
 
   modalAutoReplyRemoveGroupSubmit = () => {
-    removeAutoReply(this.state.autoReply._id);
+    removeAutoReply(this.state.autoReplyId);
     this.modalAutoReplyRemoveGroupClose();
   }
 
